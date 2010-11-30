@@ -12,6 +12,7 @@ bin
 *.vssscc
 *.userprefs
 *.user
+*.vspvcc
 
 # Other useful stuff
 *.bak
