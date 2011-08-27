@@ -27,7 +27,7 @@ namespace pvc.Core
 						_queue.MarkComplete(item);
 					}
 				}
-				catch (Exception Ex)
+				catch (Exception)
 				{
 					//Todo: Add log4net
 					//Dead letter

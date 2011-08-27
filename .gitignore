@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # Standard VS.NET and ReSharper Foo
 obj
@@ -35,3 +36,48 @@ deploy/*
 # Exclude ALL DLLs?
 *.dll
 
+=======
+
+# Standard VS.NET and ReSharper Foo
+obj
+bin
+*.csproj.user
+*ReSharper*
+*resharper*
+*.suo
+*.cache
+* Thumbs.db
+*.pidb
+*.vssscc
+*.userprefs
+*.user
+*.vspvcc
+
+# Other useful stuff
+*.bak
+*.cache
+*.log
+*.swp
+*.user
+_compareTemp
+_notes
+aspnet_client
+httpd.parse.errors
+
+# Office Temp Files
+~$* 
+
+# If you have a deploy folder
+deploy
+deploy/*
+
+# Exclude ALL DLLs?
+*.dll
+
+>>>>>>> b2383bfc2fc5e6b194c3b88123afae4429b06ee4
+
+src/.DS_Store
+
+EventHandler.vssscc -> src/EventHandler.vssscc
+
+.DS_Store

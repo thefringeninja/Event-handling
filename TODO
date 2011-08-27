@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 1) Better handling of MarkAsComplete. Initial idea do as a message published back.
 
@@ -6,3 +7,13 @@
 3) unified configuration of various pipelines eg msmq etc
 
 4) fluent api for config?
+=======
+
+1) Better handling of MarkAsComplete. Initial idea do as a message published back.
+
+2) Support for more pipelines such as msmq and activemq
+
+3) unified configuration of various pipelines eg msmq etc
+
+4) fluent api for config?
+>>>>>>> b2383bfc2fc5e6b194c3b88123afae4429b06ee4

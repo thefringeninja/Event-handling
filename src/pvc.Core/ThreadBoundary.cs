@@ -28,7 +28,7 @@ namespace pvc.Core
 					current.ForEach(x => _consumer.Handle(x));
 					Thread.Sleep(_sleepMilliseconds);
 				}
-				catch(Exception Ex)
+				catch(Exception)
 				{
 					//what to do with errors at this point?
 				}
