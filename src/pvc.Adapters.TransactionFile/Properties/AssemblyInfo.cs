@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("pvc.Adapters.MSMQ")]
+[assembly: AssemblyTitle("pvc.Adapters.TransactionFile")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("pvc.Adapters.MSMQ")]
+[assembly: AssemblyProduct("pvc.Adapters.TransactionFile")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a45afd6d-0756-4f80-a03a-e67c83f2a055")]
+[assembly: Guid("cfc010ba-39e3-41cd-81d9-0dc85ff25c9e")]
 
 // Version information for an assembly consists of the following four values:
 //
