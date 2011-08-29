@@ -22,11 +22,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-<<<<<<< HEAD
     <OutputPath>..\..\bin\lib\net35\</OutputPath>
-=======
     <OutputPath>bin\Debug\</OutputPath>
->>>>>>> b2383bfc2fc5e6b194c3b88123afae4429b06ee4
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -34,17 +31,13 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-<<<<<<< HEAD
     <OutputPath>..\..\bin\lib\net35\</OutputPath>
-=======
     <OutputPath>bin\Release\</OutputPath>
->>>>>>> b2383bfc2fc5e6b194c3b88123afae4429b06ee4
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Reference Include="pvc.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\pvc.0.0.1\lib\net35\pvc.Core.dll</HintPath>
     </Reference>
@@ -54,17 +47,11 @@
     <Reference Include="RabbitMQ.Client">
       <HintPath>..\packages\RabbitMQ.Client.2.5.1\lib\net30\RabbitMQ.Client.dll</HintPath>
     </Reference>
-=======
-    <Reference Include="RabbitMQ.Client, Version=2.1.1.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL" />
->>>>>>> b2383bfc2fc5e6b194c3b88123afae4429b06ee4
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-<<<<<<< HEAD
-=======
     <Reference Include="Microsoft.CSharp" />
->>>>>>> b2383bfc2fc5e6b194c3b88123afae4429b06ee4
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -75,16 +62,9 @@
     <Compile Include="RabbitQueue.cs" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <None Include="packages.config">
       <SubType>Designer</SubType>
-    </None>
-=======
-    <ProjectReference Include="..\lib\Event-handling\pvc.Core\pvc.Core.csproj">
-      <Project>{B4EBBFC1-A4B7-4F90-86CF-B73E1E6674B1}</Project>
-      <Name>pvc.Core</Name>
-    </ProjectReference>
->>>>>>> b2383bfc2fc5e6b194c3b88123afae4429b06ee4
+    </None>    
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
