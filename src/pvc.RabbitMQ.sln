@@ -12,18 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pvc.Adapters.RabbitMQ", "pvc.Adapters.RabbitMQ\pvc.Adapters.RabbitMQ.csproj", "{6B46EA26-3A40-4385-B573-A627724F166F}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://tfs:8080/tfs/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = EventHandler\\EventHandler.csproj
-		SccProjectName1 = EventHandler
-		SccLocalPath1 = EventHandler
-		SccProjectUniqueName2 = EventRunner\\EventRunner.csproj
-		SccProjectName2 = EventRunner
-		SccLocalPath2 = EventRunner
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
