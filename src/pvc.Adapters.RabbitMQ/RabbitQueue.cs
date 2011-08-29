@@ -9,61 +9,64 @@ namespace pvc.Adapters.RabbitMQ
 {
 	public class RabbitQueue<T> : IQueue<T>
 	{
-		private readonly string queue;
-		private readonly IFormatter formatter;
-		private readonly bool requiresAck;
-		private readonly ConnectionFactory connectionFactory;
-		private readonly IConnection connection;
-		private readonly IModel model;
-		private readonly string hostName;
-		private readonly string exchange;
-		private readonly Subscription subscription;
-		private BasicDeliverEventArgs currentDeliveryArgs;
+		private readonly string _queue;
+		private readonly IFormatter _formatter;
+	    private readonly ConnectionFactory _connectionFactory;
+		private readonly IConnection _connection;
+		private readonly IModel _model;
+		private readonly string _hostName;
+		private readonly string _exchange;
+		private readonly Subscription _subscription;
+		private BasicDeliverEventArgs _currentDeliveryArgs;
 
 		public RabbitQueue(RabbitCreationParams rabbitCreationParams)
 		{
-			this.hostName = rabbitCreationParams.HostName;
-			this.exchange = rabbitCreationParams.Exchange;
-			this.queue = rabbitCreationParams.Queue;
-			this.formatter = rabbitCreationParams.Formatter;
-			this.requiresAck = rabbitCreationParams.RequiresAck;
-			connectionFactory = new ConnectionFactory
+			_hostName = rabbitCreationParams.HostName;
+			_exchange = rabbitCreationParams.Exchange;
+			_queue = rabbitCreationParams.Queue;
+			_formatter = rabbitCreationParams.Formatter;
+		    _connectionFactory = new ConnectionFactory
 			{
 				HostName = rabbitCreationParams.HostName,
 				UserName = rabbitCreationParams.UserName,
 				Password = rabbitCreationParams.Password,
 				Port = rabbitCreationParams.Port
 			};
-			connection = connectionFactory.CreateConnection();
-			model = connection.CreateModel();
-			subscription = new Subscription(model, rabbitCreationParams.Queue, false);
+			_connection = _connectionFactory.CreateConnection();
+			_model = _connection.CreateModel();
+			_subscription = new Subscription(_model, rabbitCreationParams.Queue, false);
 		}
 
 		public bool TryDequeue(out T item)
 		{
-			int messageCount = 0;
-			currentDeliveryArgs = subscription.Next();
-			item = (T)formatter.Deserialize(new MemoryStream(currentDeliveryArgs.Body));
+		    _currentDeliveryArgs = _subscription.Next();
+			item = (T)_formatter.Deserialize(new MemoryStream(_currentDeliveryArgs.Body));
 			return true;
 		}
 
 		public void Enqueue(T item)
 		{
-			var ibp = model.CreateBasicProperties();
-			var shitbird = new MemoryStream();
-			formatter.Serialize(shitbird, item);
-			model.BasicPublish(exchange, string.Empty, false, false, ibp, shitbird.ToArray());
+			var ibp = _model.CreateBasicProperties();
+			using(var ms = new MemoryStream())
+			{
+                _formatter.Serialize(ms, item);
+			    
+                var body = ms.ToArray();
+			    _model.BasicPublish(_exchange, string.Empty, false, false, ibp, body);
+			}
 		}
 
 		public void MarkComplete(T item)
 		{
-			if (currentDeliveryArgs != null)
-				subscription.Ack(currentDeliveryArgs);
+			if (_currentDeliveryArgs != null)
+			{
+			    _subscription.Ack(_currentDeliveryArgs);
+			}
 		}
 
 		public override string ToString()
 		{
-			return hostName + ":" + exchange + ":" + queue;
+			return string.Format("{0}:{1}:{2}", _hostName, _exchange, _queue);
 		}
 	}
 }
