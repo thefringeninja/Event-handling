@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace pvc.Adapters.RabbitMQ
@@ -13,6 +14,8 @@ namespace pvc.Adapters.RabbitMQ
 		public string Queue { get; set; }
 		public IFormatter Formatter { get; set; }
 		public bool RequiresAck { get; set; }
+        public int PrefetchCount { get; set; }
+        public bool PersistentMessages { get; set; }
 
 		public RabbitQueueBuilder()
 		{
@@ -85,14 +88,38 @@ namespace pvc.Adapters.RabbitMQ
 			}
 		}
 
+        public RabbitQueueBuilder<T> WithPrefetchEventCount(uint count)
+        {
+            if (PrefetchCount > ushort.MaxValue) throw new ArgumentOutOfRangeException("count", string.Format("prefetchCount must between {0} and {1} inclusive.", ushort.MinValue, ushort.MaxValue));
+            return this;
+        }
+
+        public RabbitQueueBuilder<T> WithPersistentMessages
+        {
+            get
+            {
+                PersistentMessages = true;
+                return this;
+            }
+        }
+
+        public RabbitQueueBuilder<T> WithTransientMessages
+        {
+            get
+            {
+                PersistentMessages = false;
+                return this;
+            }
+        }
+
 		public static implicit operator RabbitQueue<T>(RabbitQueueBuilder<T> builder)
 		{
-			return
-				new RabbitQueue<T>(new RabbitCreationParams(builder.HostName, builder.UserName, builder.Password, builder.Port,
-				                                            builder.Exchange, builder.Queue,
-				                                            builder.Formatter, builder.RequiresAck));
+		    return
+		        new RabbitQueue<T>(new RabbitCreationParams(builder.HostName, builder.UserName, builder.Password, builder.Port,
+		                                                    builder.Exchange, builder.Queue, builder.Formatter,
+		                                                    builder.RequiresAck, builder.PrefetchCount,
+		                                                    builder.PersistentMessages));
 
 		}
-
 	}
 }
