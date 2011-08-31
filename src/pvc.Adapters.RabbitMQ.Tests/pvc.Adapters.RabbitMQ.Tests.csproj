@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{FB05542F-9C7D-4360-9A6E-2A8E1630666F}</ProjectGuid>
+    <ProjectGuid>{6F55A4FE-7004-46B7-B4B5-F63D34308ADD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>pvc.Adapters.TransactionFile</RootNamespace>
-    <AssemblyName>pvc.Adapters.TransactionFile</AssemblyName>
+    <RootNamespace>pvc.Adapters.RabbitMQ.Tests</RootNamespace>
+    <AssemblyName>pvc.Adapters.RabbitMQ.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\lib\net40\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;NET40</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -26,20 +26,20 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\lib\net40\</OutputPath>
-    <DefineConstants>TRACE;NET40</DefineConstants>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net">
-      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="pvc.Core">
-      <HintPath>..\packages\pvc.0.0.1\lib\net35\pvc.Core.dll</HintPath>
+    <Reference Include="nunit.mocks">
+      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.mocks.dll</HintPath>
     </Reference>
-    <Reference Include="pvc.Projections">
-      <HintPath>..\packages\pvc.0.0.1\lib\net35\pvc.Projections.dll</HintPath>
+    <Reference Include="pnunit.framework">
+      <HintPath>..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,28 +49,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Checksums\FileChecksum.cs" />
-    <Compile Include="IBlockingQueue.cs" />
-    <Compile Include="IChecksum.cs" />
-    <Compile Include="Processing\HashedProcessorFactory.cs" />
-    <Compile Include="Processing\ICommandProcessor.cs" />
-    <Compile Include="Processing\ICommandProcessorFactory.cs" />
-    <Compile Include="Processing\Instrumentation\IQueueProcessorInstrumentation.cs" />
-    <Compile Include="Processing\Instrumentation\WMIQueueProcessorInstrumentation.cs" />
-    <Compile Include="Processing\QueueProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queues\InMemoryBlockingQueue.cs" />
-    <Compile Include="Queues\TransactionFileBlockingQueue.cs" />
-    <Compile Include="Queues\TransactionFile\ChecksummedTransactionFileReader.cs" />
-    <Compile Include="Queues\TransactionFile\TransactionFileReader.cs" />
-    <Compile Include="Queues\TransactionFile\TransactionFileWriter.cs" />
-    <Compile Include="TransactionFileConsumer.cs" />
-    <Compile Include="TransactionFileProducer.cs" />
+    <Compile Include="Throttling\When_using_queue_throttling.cs" />
+    <Compile Include="Throttling\When_using_sequence_throttling.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\pvc.Adapters.RabbitMQ\pvc.Adapters.RabbitMQ.csproj">
+      <Project>{6B46EA26-3A40-4385-B573-A627724F166F}</Project>
+      <Name>pvc.Adapters.RabbitMQ</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

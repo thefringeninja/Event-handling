@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{477AD8ED-0C5D-48F4-BDB2-80707F1F7200}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>pvc.Projections</RootNamespace>
+    <AssemblyName>pvc.Projections</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\lib\net20\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET20</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\lib\net20\</OutputPath>
+    <DefineConstants>TRACE;NET20</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\pvc.Core.Net20\LinqBridge-1.2.cs">
+      <Link>LinqBridge-1.2.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Projections\ActivatorProjectionCreator.cs">
+      <Link>ActivatorProjectionCreator.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Projections\IChecksumStorage.cs">
+      <Link>IChecksumStorage.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Projections\IEventLog.cs">
+      <Link>IEventLog.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Projections\IProjectionCreator.cs">
+      <Link>IProjectionCreator.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Projections\ProjectionAttribute.cs">
+      <Link>ProjectionAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Projections\ProjectionHost.cs">
+      <Link>ProjectionHost.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Projections\TypeFinder.cs">
+      <Link>TypeFinder.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\pvc.Core.Net20\pvc.Core.Net20.csproj">
+      <Project>{D0005373-8959-4147-836A-EBC8E27E016B}</Project>
+      <Name>pvc.Core.Net20</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

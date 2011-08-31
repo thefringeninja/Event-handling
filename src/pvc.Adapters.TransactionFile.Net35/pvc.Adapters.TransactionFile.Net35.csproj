@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{26FA2BAE-9D09-444C-8D2F-977F03EE2AAA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>pvc.Adapters.TransactionFile</RootNamespace>
+    <AssemblyName>pvc.Adapters.TransactionFile</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\lib\net35\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET35</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\lib\net35\</OutputPath>
+    <DefineConstants>TRACE;NET35</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\pvc.adapters.transactionfile\checksums\FileChecksum.cs">
+      <Link>Checksums\FileChecksum.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Adapters.TransactionFile\IBlockingQueue.cs">
+      <Link>IBlockingQueue.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Adapters.TransactionFile\IChecksum.cs">
+      <Link>IChecksum.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.adapters.transactionfile\processing\HashedProcessorFactory.cs">
+      <Link>Processing\HashedProcessorFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.adapters.transactionfile\processing\ICommandProcessor.cs">
+      <Link>Processing\ICommandProcessor.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.adapters.transactionfile\processing\ICommandProcessorFactory.cs">
+      <Link>Processing\ICommandProcessorFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.adapters.transactionfile\processing\instrumentation\IQueueProcessorInstrumentation.cs">
+      <Link>Processing\Instrumentation\IQueueProcessorInstrumentation.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.adapters.transactionfile\processing\instrumentation\WMIQueueProcessorInstrumentation.cs">
+      <Link>Processing\Instrumentation\WMIQueueProcessorInstrumentation.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.adapters.transactionfile\processing\QueueProcessor.cs">
+      <Link>Processing\QueueProcessor.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.adapters.transactionfile\queues\InMemoryBlockingQueue.cs">
+      <Link>Queues\InMemoryBlockingQueue.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.adapters.transactionfile\queues\TransactionFileBlockingQueue.cs">
+      <Link>Queues\TransactionFileBlockingQueue.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.adapters.transactionfile\queues\transactionfile\ChecksummedTransactionFileReader.cs">
+      <Link>Queues\TransactionFile\ChecksummedTransactionFileReader.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.adapters.transactionfile\queues\transactionfile\TransactionFileReader.cs">
+      <Link>Queues\TransactionFile\TransactionFileReader.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.adapters.transactionfile\queues\transactionfile\TransactionFileWriter.cs">
+      <Link>Queues\TransactionFile\TransactionFileWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Adapters.TransactionFile\TransactionFileConsumer.cs">
+      <Link>TransactionFileConsumer.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Adapters.TransactionFile\TransactionFileProducer.cs">
+      <Link>TransactionFileProducer.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\pvc.Core.Net35\pvc.Core.Net35.csproj">
+      <Project>{9167C12C-0F5D-4F2B-85F3-DAA751077648}</Project>
+      <Name>pvc.Core.Net35</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\pvc.Projections.Net35\pvc.Projections.Net35.csproj">
+      <Project>{ED18A30F-C287-4F5F-B4A8-6F47A579B4A6}</Project>
+      <Name>pvc.Projections.Net35</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D0005373-8959-4147-836A-EBC8E27E016B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>pvc.Core</RootNamespace>
+    <AssemblyName>pvc.Core</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\lib\net20\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET20</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\lib\net20\</OutputPath>
+    <DefineConstants>TRACE;NET20</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\pvc.Core\ActionWrappingConsumer.cs">
+      <Link>ActionWrappingConsumer.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\BufferMessages.cs">
+      <Link>BufferMessages.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\Bus\ActionWrappingBusPublisher.cs">
+      <Link>Bus\ActionWrappingBusPublisher.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\Bus\Command.cs">
+      <Link>Bus\Command.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\Bus\Event.cs">
+      <Link>Bus\Event.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\Bus\IBus.cs">
+      <Link>Bus\IBus.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\ByTypeDispatcher.cs">
+      <Link>ByTypeDispatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\Combiner.cs">
+      <Link>Combiner.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\Consumes.cs">
+      <Link>Consumes.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\CriticalSection.cs">
+      <Link>CriticalSection.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\EventAggregator.cs">
+      <Link>EventAggregator.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\Extensions.cs">
+      <Link>Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\IMessagePublisher.cs">
+      <Link>IMessagePublisher.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\InMemoryQueue.cs">
+      <Link>InMemoryQueue.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\IQueue.cs">
+      <Link>IQueue.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\Message.cs">
+      <Link>Message.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\MessagePublisher.cs">
+      <Link>MessagePublisher.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\Multiplexor.cs">
+      <Link>Multiplexor.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\NarrowingConsumer.cs">
+      <Link>NarrowingConsumer.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\NullConsumer.cs">
+      <Link>NullConsumer.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\Pipe.cs">
+      <Link>Pipe.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\PipeAdapter.cs">
+      <Link>PipeAdapter.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\Produces.cs">
+      <Link>Produces.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\QueueReader.cs">
+      <Link>QueueReader.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\QueueWriter.cs">
+      <Link>QueueWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\ThreadBoundary.cs">
+      <Link>ThreadBoundary.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\ThreadPoolPipe.cs">
+      <Link>ThreadPoolPipe.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\UnableToAcquireLockException.cs">
+      <Link>UnableToAcquireLockException.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\WideningConsumer.cs">
+      <Link>WideningConsumer.cs</Link>
+    </Compile>
+    <Compile Include="LinqBridge-1.2.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
