@@ -64,6 +64,16 @@ namespace pvc.Adapters.RabbitMQ
 			}
 		}
 
+        public void Requeue(T item)
+        {
+            if (_currentDeliveryArgs == null)
+            {
+                return;
+            }
+
+            _model.BasicReject(_currentDeliveryArgs.DeliveryTag, true);
+        }
+
 		public override string ToString()
 		{
 			return string.Format("{0}:{1}:{2}", _hostName, _exchange, _queue);

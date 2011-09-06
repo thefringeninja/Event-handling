@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 		<id>pvc-rabbmitmq</id>
-		<version>0.0.1</version>
+		<version>0.0.2</version>
 		<authors>Gregory Young</authors>
 		<owners>Daniel Crenna</owners>
 		<description>A RabbitMQ adapter for the PVC library</description>
@@ -13,7 +13,7 @@
 		<iconUrl>http://apitize.com.s3.amazonaws.com/logo-pvc.png</iconUrl>
 		<tags>pvc pipes rabbitmq</tags>
     <dependencies>
-      <dependency id="pvc" version="0.0.1" />
+      <dependency id="pvc" version="0.0.2" />
       <dependency id="RabbitMQ.Client" version="2.5.1" />
     </dependencies>
 	</metadata>

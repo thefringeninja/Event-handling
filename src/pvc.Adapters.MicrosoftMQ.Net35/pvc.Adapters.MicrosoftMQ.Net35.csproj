@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{32A5EF7C-D4C4-4EE3-A777-6A348A4C8BDA}</ProjectGuid>
+    <ProjectGuid>{66BFD0A4-C4A0-46E3-819E-3B5D0A9BE8F9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>pvc.Adapters.RabbitMQ</RootNamespace>
-    <AssemblyName>pvc.Adapters.RabbitMQ</AssemblyName>
+    <RootNamespace>pvc.Adapters.MicrosoftMQ</RootNamespace>
+    <AssemblyName>pvc.Adapters.MicrosoftMQ</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,21 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
-      <HintPath>..\packages\pvc.0.0.2\lib\net35\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="pvc.Adapters.TransactionFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\pvc.0.0.2\lib\net35\pvc.Adapters.TransactionFile.dll</HintPath>
-    </Reference>
-    <Reference Include="pvc.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\pvc.0.0.2\lib\net35\pvc.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="pvc.Projections, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\pvc.0.0.2\lib\net35\pvc.Projections.dll</HintPath>
-    </Reference>
-    <Reference Include="RabbitMQ.Client, Version=2.5.1.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
-      <HintPath>..\packages\RabbitMQ.Client.2.5.1\lib\net30\RabbitMQ.Client.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -54,19 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\pvc.Adapters.RabbitMQ\RabbitCreationParams.cs">
-      <Link>RabbitCreationParams.cs</Link>
-    </Compile>
-    <Compile Include="..\pvc.Adapters.RabbitMQ\RabbitQueue.cs">
-      <Link>RabbitQueue.cs</Link>
-    </Compile>
-    <Compile Include="..\pvc.Adapters.RabbitMQ\RabbitQueueBuilder.cs">
-      <Link>RabbitQueueBuilder.cs</Link>
-    </Compile>
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

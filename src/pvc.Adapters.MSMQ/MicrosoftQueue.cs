@@ -63,6 +63,7 @@ namespace pvc.Adapters.MicrosoftMQ
 
         public void Requeue(T item)
         {
+            Enqueue(item);
         }
 
         public virtual bool TryDequeue(out T item)
