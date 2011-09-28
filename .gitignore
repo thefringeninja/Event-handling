@@ -1,83 +1,35 @@
-<<<<<<< HEAD
-
-# Standard VS.NET and ReSharper Foo
-obj
-bin
-*.csproj.user
-*ReSharper*
-*resharper*
-*.suo
-*.cache
-* Thumbs.db
-*.pidb
-*.vssscc
-*.userprefs
+#ignore thumbnails created by windows
+Thumbs.db
+#Ignore files build by Visual Studio
+*.obj
+*.pdb
 *.user
-*.vspvcc
-
-# Other useful stuff
+*.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
 *.bak
 *.cache
+*.ilk
 *.log
-*.swp
-*.user
-_compareTemp
-_notes
-aspnet_client
-httpd.parse.errors
-
-# Office Temp Files
-~$* 
-
-# If you have a deploy folder
-deploy
-deploy/*
-
-# Exclude ALL DLLs?
-*.dll
-
-=======
-
-# Standard VS.NET and ReSharper Foo
-obj
-bin
-*.csproj.user
-*ReSharper*
-*resharper*
-*.suo
-*.cache
-* Thumbs.db
+[Bb]in
+[Dd]ebug*/
+*.lib
+*.sbr
+obj/
+[Rr]elease*/
+_ReSharper*/
+[Tt]est[Rr]esult*
+deploy.config
+Examples*/
+*.vsmdi
 *.pidb
-*.vssscc
 *.userprefs
-*.user
-*.vspvcc
-
-# Other useful stuff
-*.bak
-*.cache
-*.log
-*.swp
-*.user
-_compareTemp
-_notes
-aspnet_client
-httpd.parse.errors
-
-# Office Temp Files
-~$* 
-
-# If you have a deploy folder
-deploy
-deploy/*
-
-# Exclude ALL DLLs?
-*.dll
-
->>>>>>> b2383bfc2fc5e6b194c3b88123afae4429b06ee4
-
-src/.DS_Store
-
-EventHandler.vssscc -> src/EventHandler.vssscc
-
-.DS_Store
+*.testrunconfig
+publish.xml
+TestResults

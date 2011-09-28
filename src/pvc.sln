@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pvc.Adapters.TransactionFil
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pvc.Adapters.TransactionFile.Net35", "pvc.Adapters.TransactionFile.Net35\pvc.Adapters.TransactionFile.Net35.csproj", "{26FA2BAE-9D09-444C-8D2F-977F03EE2AAA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pvc.Adapters.TransactionFile.Tests", "pvc.Adapters.TransactionFile.Tests\pvc.Adapters.TransactionFile.Tests.csproj", "{18B3C3C8-0260-44CB-8CBC-8CDE2BDAB1E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -143,6 +145,16 @@ Global
 		{26FA2BAE-9D09-444C-8D2F-977F03EE2AAA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{26FA2BAE-9D09-444C-8D2F-977F03EE2AAA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{26FA2BAE-9D09-444C-8D2F-977F03EE2AAA}.Release|x86.ActiveCfg = Release|Any CPU
+		{18B3C3C8-0260-44CB-8CBC-8CDE2BDAB1E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18B3C3C8-0260-44CB-8CBC-8CDE2BDAB1E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18B3C3C8-0260-44CB-8CBC-8CDE2BDAB1E7}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{18B3C3C8-0260-44CB-8CBC-8CDE2BDAB1E7}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{18B3C3C8-0260-44CB-8CBC-8CDE2BDAB1E7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{18B3C3C8-0260-44CB-8CBC-8CDE2BDAB1E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18B3C3C8-0260-44CB-8CBC-8CDE2BDAB1E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18B3C3C8-0260-44CB-8CBC-8CDE2BDAB1E7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{18B3C3C8-0260-44CB-8CBC-8CDE2BDAB1E7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{18B3C3C8-0260-44CB-8CBC-8CDE2BDAB1E7}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

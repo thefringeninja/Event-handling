@@ -36,7 +36,7 @@
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
     <Reference Include="pvc.Core">
-      <HintPath>..\packages\pvc.0.0.1\lib\net35\pvc.Core.dll</HintPath>
+      <HintPath>..\pvc.Core\obj\Debug\pvc.Core.dll</HintPath>
     </Reference>
     <Reference Include="pvc.Projections">
       <HintPath>..\packages\pvc.0.0.1\lib\net35\pvc.Projections.dll</HintPath>
