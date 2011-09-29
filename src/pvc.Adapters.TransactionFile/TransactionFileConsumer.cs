@@ -4,6 +4,10 @@ using pvc.Core;
 
 namespace pvc.Adapters.TransactionFile
 {
+    /// <summary>
+    /// A consumer for a given message type that handles the message by serializing it to a transaction file
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
 	public class TransactionFileConsumer<T> : Consumes<T> where T : Message
 	{
 		private readonly TransactionFileWriter<T> _writer;

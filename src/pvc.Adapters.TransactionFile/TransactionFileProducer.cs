@@ -9,7 +9,7 @@ namespace pvc.Adapters.TransactionFile
 {
 	public class TransactionFileProducer<T> : Produces<T> where T : Message
 	{
-		readonly TransactionFileBlockingQueue<T> _reader;
+		private readonly TransactionFileBlockingQueue<T> _reader;
 		private QueueProcessor<T> _processor;
 		private Consumes<T> _consumer;
 

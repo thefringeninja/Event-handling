@@ -11,7 +11,7 @@ namespace pvc.Adapters.TransactionFile.Queues.TransactionFile
 	/// from various problems such as application shutdown.
 	/// </summary>
 	/// <typeparam name="T">The type of the objects which are to be read from the transaction file.
-	/// Usually this will be a shared base class or interface but for untyped access could just be object</typeparam>
+    /// Usually this will be a shared base class or interface but for untyped access, it could just be <code>object</code></typeparam>
 	class CheckSummedTransactionFileReader<T> : TransactionFileReader<T>
 	{
 		private readonly FileChecksum _checksum;
@@ -49,6 +49,7 @@ namespace pvc.Adapters.TransactionFile.Queues.TransactionFile
 			{
 				throw new ArgumentNullException("ChecksumName");
 			}
+
 			var fi = new FileInfo(filename);
 			var checksumfile = string.Format("{0}\\{1}.chk", fi.DirectoryName, checksumName);
 			var writeCheksumFilename = string.Format("{0}\\{1}.chk", fi.DirectoryName, fi.Name);

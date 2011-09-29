@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pvc.Core", "pvc.Core\pvc.Core.csproj", "{B4EBBFC1-A4B7-4F90-86CF-B73E1E6674B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pvc.Tests", "pvc.Tests\pvc.Tests.csproj", "{0452212F-EB0E-43AB-80EA-48AF7656B7B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pvc.Core.Tests", "pvc.Tests\pvc.Core.Tests.csproj", "{0452212F-EB0E-43AB-80EA-48AF7656B7B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pvc.Projections", "pvc.Projections\pvc.Projections.csproj", "{A852309C-564E-47DC-B046-A7183F295D25}"
 EndProject
