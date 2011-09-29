@@ -1,7 +1,12 @@
 using System;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading;
 using pvc.Adapters.TransactionFile.Queues.TransactionFile;
+
+#if NET20
+#define UseOlderReaderWriter
+#endif
 
 namespace pvc.Adapters.TransactionFile.Queues
 {
@@ -10,10 +15,16 @@ namespace pvc.Adapters.TransactionFile.Queues
     /// file for persistence and allows inter-process communication (IPC)
     /// </summary>
     /// <remarks>
-    ///     - Many processes can read and write to this blocking queue. All processes will see all writes.
+    ///     - Many processes can read and write to this blocking queue. All processes will see all writes.     
     /// </remarks>
     public class TransactionFileBlockingQueue<T> : IBlockingQueue<T>
     {
+#if UseOlderReaderWriter
+        private readonly ReaderWriterLock _lock = new ReaderWriterLock();
+#else
+        private readonly ReaderWriterLockSlim _lock = new ReaderWriterLockSlim();
+#endif
+
         private readonly TransactionFileWriter<T> _writer;
         private readonly TransactionFileReader<T> _reader;
         private readonly string _name;
@@ -25,12 +36,12 @@ namespace pvc.Adapters.TransactionFile.Queues
 
         public TransactionFileBlockingQueue(string transactionFilename, string checkSumName, IFormatter formatter)
         {
-            if(transactionFilename == null)
+            if (transactionFilename == null)
             {
                 throw new ArgumentNullException("TransactionFileName");
             }
 
-            if(formatter == null)
+            if (formatter == null)
             {
                 formatter = new BinaryFormatter();
             }
@@ -43,6 +54,8 @@ namespace pvc.Adapters.TransactionFile.Queues
                           : new TransactionFileReader<T>(transactionFilename, formatter);
         }
 
+        public TransactionFileBlockingQueue(string transactionFilename, string checkSumName) : this(transactionFilename, checkSumName, null) { }
+
         public TransactionFileBlockingQueue(string transactionFilename) : this(transactionFilename, null, null) { }
 
         #region IBlockingQueue<T> Members
@@ -54,16 +67,53 @@ namespace pvc.Adapters.TransactionFile.Queues
 
         public void Enqueue(T data)
         {
-            _writer.Enqueue(data);
+            try
+            {
+#if UseOlderReaderWriter
+                _lock.AcquireWriterLock(5000);
+#else
+                _lock.EnterWriteLock();
+#endif
+                _writer.Enqueue(data);
+                Interlocked.Increment(ref _count);
+            }
+            finally
+            {
+#if UseOlderReaderWriter
+                _lock.ReleaseWriterLock();
+#else
+                _lock.ExitWriteLock();
+#endif
+            }
         }
 
         public T Dequeue()
         {
-            return _reader.Dequeue();
+            try
+            {
+#if UseOlderReaderWriter
+                _lock.AcquireReaderLock();
+#else
+                _lock.EnterReadLock();
+#endif
+                var item = _reader.Dequeue();
+                Interlocked.Decrement(ref _count);
+                return item;
+            }
+            finally
+            {
+#if UseOlderReaderWriter
+                _lock.ReleaseReaderLock();
+#else
+                _lock.ExitReadLock();
+#endif
+            }
         }
 
-        public int Count { get; private set; }
+        private int _count;
 
+        public int Count { get { return _count; } }
+        
         #endregion
     }
 }
