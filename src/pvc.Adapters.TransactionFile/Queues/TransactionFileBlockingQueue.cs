@@ -1,12 +1,12 @@
+#if NET20
+#define UseOlderReaderWriter
+#endif
+
 using System;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using pvc.Adapters.TransactionFile.Queues.TransactionFile;
-
-#if NET20
-#define UseOlderReaderWriter
-#endif
 
 namespace pvc.Adapters.TransactionFile.Queues
 {
@@ -92,7 +92,7 @@ namespace pvc.Adapters.TransactionFile.Queues
             try
             {
 #if UseOlderReaderWriter
-                _lock.AcquireReaderLock();
+                _lock.AcquireReaderLock(5000);
 #else
                 _lock.EnterReadLock();
 #endif
