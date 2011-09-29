@@ -67,7 +67,7 @@ namespace pvc.Adapters.TransactionFile.Processing.Instrumentation
             opsPerSecond.CounterType = PerformanceCounterType.RateOfCountsPerSecond32;
             counters.Add(opsPerSecond);
 
-            PerformanceCounterCategory.Create(groupName, "PVC", counters);
+            PerformanceCounterCategory.Create(groupName, "PVC", PerformanceCounterCategoryType.SingleInstance, counters);
         }
 
         public WMIQueueProcessorInstrumentation(string groupName)
