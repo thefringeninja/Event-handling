@@ -1,9 +1,10 @@
 using System;
 using System.IO;
+using System.Threading;
 
 namespace pvc.Adapters.TransactionFile.Checksums
 {
-    public class FileChecksum : IChecksum
+    internal class FileChecksum : IChecksum, IDisposable
     {
         private readonly string _filename;
         private readonly StreamReader _reader;
@@ -13,25 +14,15 @@ namespace pvc.Adapters.TransactionFile.Checksums
         public FileChecksum(string filename)
         {
             _filename = filename;
-            var newFile = false;
-            if (File.Exists(filename))
-            {
-                _fileStream = File.Open(filename, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
-            }
-            else
-            {
-                _fileStream = File.Open(filename, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite);
-                newFile = true;
-            }
+            _fileStream = File.Open(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
+
             _reader = new StreamReader(_fileStream);
             _writer = new StreamWriter(_fileStream);
-            if (newFile || _fileStream.Length == 0)
+            if (_fileStream.Length == 0)
             {
                 Reset();
             }
         }
-
-        #region IChecksum Members
 
         public void SetValue(long value)
         {
@@ -54,6 +45,22 @@ namespace pvc.Adapters.TransactionFile.Checksums
 
         public string Name { get { return _filename; } }
 
-        #endregion
+        public void Dispose()
+        {
+            if(_reader != null)
+            {
+                _reader.Dispose();
+            }
+
+            if(_writer != null)
+            {
+                _writer.Dispose();
+            }
+
+            if(_fileStream != null)
+            {
+                _fileStream.Dispose();
+            }
+        }
     }
 }
