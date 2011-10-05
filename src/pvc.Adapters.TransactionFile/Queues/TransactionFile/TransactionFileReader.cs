@@ -12,9 +12,11 @@ namespace pvc.Adapters.TransactionFile.Queues.TransactionFile
 	/// <typeparam name="T">The type of transactions to read, generally this will be a shared base class or interface but could also be 'object' in order to allow untyped access</typeparam>
 	internal class TransactionFileReader<T>
 	{
-		protected FileStream _fileStream;
-		protected IFormatter _formatter;
-	    protected ILog _logger;
+        private static readonly object _sync = new object();
+		
+        protected FileStream FileStream;
+		protected IFormatter Formatter;
+	    protected ILog Logger;
 
 		/// <summary>
 		/// Reads the next item off of the stream, blocking if one is not available.
@@ -22,15 +24,18 @@ namespace pvc.Adapters.TransactionFile.Queues.TransactionFile
 		/// <returns></returns>
 		public virtual T Dequeue()
 		{
-			while (true)
-			{
-				if (_fileStream.Position != _fileStream.Length)
-				{
-					var o = _formatter.Deserialize(_fileStream);
-					return (T)o;
-				}
-				Thread.Sleep(1);
-			}
+            while (true)
+            {
+                if (FileStream.Position != FileStream.Length)
+                {
+                    lock (_sync) // Locking outside blocking can cause deadlocks!
+                    {
+                        var o = Formatter.Deserialize(FileStream);
+                        return (T) o;
+                    }
+                }
+                Thread.Sleep(1);
+            }
 		}
 
         public TransactionFileReader(string filename, IFormatter formatter)
@@ -44,16 +49,16 @@ namespace pvc.Adapters.TransactionFile.Queues.TransactionFile
                 throw new ArgumentNullException("formatter");
 			}
 			
-            _logger = LogManager.GetLogger(GetType());
-			_formatter = formatter;
+            Logger = LogManager.GetLogger(GetType());
+			Formatter = formatter;
 			var fi = new FileInfo(filename); 
 			
-            if (_logger.IsDebugEnabled)
+            if (Logger.IsDebugEnabled)
 			{
-                _logger.Debug(string.Format("Opening Transaction File: {0}", filename));
+                Logger.Debug(string.Format("Opening Transaction File: {0}", filename));
 			}
 			
-            _fileStream = fi.Open(FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite);
+            FileStream = fi.Open(FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite);
 		}
 	}
 }

@@ -62,6 +62,7 @@
     <Compile Include="Queues\InMemoryBlockingQueue.cs" />
     <Compile Include="Queues\TransactionFileBlockingQueue.cs" />
     <Compile Include="Queues\TransactionFile\ChecksummedTransactionFileReader.cs" />
+    <Compile Include="Queues\TransactionFile\TransactionFile.cs" />
     <Compile Include="Queues\TransactionFile\TransactionFileReader.cs" />
     <Compile Include="Queues\TransactionFile\TransactionFileWriter.cs" />
     <Compile Include="TransactionFileConsumer.cs" />

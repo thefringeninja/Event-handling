@@ -15,16 +15,11 @@ namespace pvc.Adapters.TransactionFile.Queues
     /// file for persistence and allows inter-process communication (IPC)
     /// </summary>
     /// <remarks>
-    ///     - Many processes can read and write to this blocking queue. All processes will see all writes.     
+    ///     - Many processes can read and write to this blocking queue; all processes will see all writes.     
     /// </remarks>
     public class TransactionFileBlockingQueue<T> : IBlockingQueue<T>
     {
-#if UseOlderReaderWriter
-        private readonly ReaderWriterLock _lock = new ReaderWriterLock();
-#else
-        private readonly ReaderWriterLockSlim _lock = new ReaderWriterLockSlim();
-#endif
-
+        private static readonly object _sync = new object();
         private readonly TransactionFileWriter<T> _writer;
         private readonly TransactionFileReader<T> _reader;
         private readonly string _name;
@@ -38,7 +33,7 @@ namespace pvc.Adapters.TransactionFile.Queues
         {
             if (transactionFilename == null)
             {
-                throw new ArgumentNullException("TransactionFileName");
+                throw new ArgumentNullException("transactionFileName");
             }
 
             if (formatter == null)
@@ -67,52 +62,20 @@ namespace pvc.Adapters.TransactionFile.Queues
 
         public void Enqueue(T data)
         {
-            try
-            {
-#if UseOlderReaderWriter
-                _lock.AcquireWriterLock(5000);
-#else
-                _lock.EnterWriteLock();
-#endif
-                _writer.Enqueue(data);
-                Interlocked.Increment(ref _count);
-            }
-            finally
-            {
-#if UseOlderReaderWriter
-                _lock.ReleaseWriterLock();
-#else
-                _lock.ExitWriteLock();
-#endif
-            }
+            _writer.Enqueue(data);
+            Interlocked.Increment(ref _count);
         }
 
         public T Dequeue()
         {
-            try
-            {
-#if UseOlderReaderWriter
-                _lock.AcquireReaderLock(5000);
-#else
-                _lock.EnterReadLock();
-#endif
-                var item = _reader.Dequeue();
-                Interlocked.Decrement(ref _count);
-                return item;
-            }
-            finally
-            {
-#if UseOlderReaderWriter
-                _lock.ReleaseReaderLock();
-#else
-                _lock.ExitReadLock();
-#endif
-            }
+            var item = _reader.Dequeue();
+            Interlocked.Decrement(ref _count);
+            return item;
         }
 
-        private int _count;
+        private long _count;
 
-        public int Count { get { return _count; } }
+        public int Count { get { return (int)Interlocked.Read(ref _count); } }
         
         #endregion
     }

@@ -1,7 +1,8 @@
 ﻿using System.IO;
+using System.Threading;
 using NUnit.Framework;
 using pvc.Adapters.TransactionFile.Checksums;
-using pvc.Adapters.TransactionFile.Tests.Fixtures;
+using pvc.Adapters.TransactionFile.Tests._Fixtures;
 
 namespace pvc.Adapters.TransactionFile.Tests.Checksums
 {
@@ -12,6 +13,7 @@ namespace pvc.Adapters.TransactionFile.Tests.Checksums
 
         public When_using_file_checksum() : base(Filename)
         {
+
 
         }
 

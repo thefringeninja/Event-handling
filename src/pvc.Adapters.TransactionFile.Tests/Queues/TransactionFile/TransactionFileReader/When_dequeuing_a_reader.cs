@@ -2,7 +2,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using NUnit.Framework;
 using pvc.Adapters.TransactionFile.Queues.TransactionFile;
-using pvc.Adapters.TransactionFile.Tests.Fixtures;
+using pvc.Adapters.TransactionFile.Tests._Fixtures;
 
 namespace pvc.Adapters.TransactionFile.Tests.Queues.TransactionFile.TransactionFileReader
 {
@@ -31,10 +31,10 @@ namespace pvc.Adapters.TransactionFile.Tests.Queues.TransactionFile.TransactionF
             ThreadPool.QueueUserWorkItem(
                 s =>
                     {
-                        Thread.Sleep(100);
+                        Thread.Sleep(200);
                         var writer = new TransactionFileWriter<object>(Filename, new BinaryFormatter());
-                        writer.Enqueue(new object());
                         background = true;
+                        writer.Enqueue(new object());
                     }
                 );
             
@@ -44,6 +44,32 @@ namespace pvc.Adapters.TransactionFile.Tests.Queues.TransactionFile.TransactionF
             reader.Dequeue();
             reader.Dequeue();
             Assert.IsTrue(background, "Reader completed dequeuing but not from the background thread");
+        }
+
+        [Test]
+        public void dequeues_can_come_from_multiple_consumers()
+        {
+            int[] count = { Count };
+            var block = new ManualResetEvent(false);
+
+            for (var i = 0; i < Count; i++)
+            {
+                ThreadPool.QueueUserWorkItem(
+                    s =>
+                    {
+                        Thread.Sleep(200);
+                        var reader = new TransactionFileReader<object>(Filename, new BinaryFormatter());
+                        var item = reader.Dequeue();
+                        Assert.IsNotNull(item);
+                        Interlocked.Decrement(ref count[0]);
+                        if(count[0] == 0)
+                        {
+                            block.Set();
+                        }
+                    });
+            }
+
+            block.WaitOne();
         }
     }
 }

@@ -1,7 +1,7 @@
 using System.IO;
 using pvc.Adapters.TransactionFile.Checksums;
 
-namespace pvc.Adapters.TransactionFile.Tests.Fixtures
+namespace pvc.Adapters.TransactionFile.Tests._Fixtures
 {
     public class FileChecksumFixture
     {

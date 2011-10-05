@@ -7,16 +7,21 @@ using pvc.Adapters.TransactionFile.Checksums;
 namespace pvc.Adapters.TransactionFile.Queues.TransactionFile
 {
 	/// <summary>
-	/// Reads transactions from the transaction file updating a persistent checksum to allow for recovery
+	/// Handles reading transactions from a transaction file, updating a persistent checksum to allow for recovery
 	/// from various problems such as application shutdown.
+	/// <remarks>
+	///     - These processes will rely on an internal checksum from a paired writer to 'see' outside writes
+	///     - The specified checksum is to manage an interrupted read, and is not related to writes
+	/// </remarks>
 	/// </summary>
 	/// <typeparam name="T">The type of the objects which are to be read from the transaction file.
     /// Usually this will be a shared base class or interface but for untyped access, it could just be <code>object</code></typeparam>
-	class CheckSummedTransactionFileReader<T> : TransactionFileReader<T>
+	internal class CheckSummedTransactionFileReader<T> : TransactionFileReader<T>
 	{
-		private readonly FileChecksum _checksum;
-		private readonly FileChecksum _writeChecksum;
-       
+	    private static readonly object _sync = new object();
+		private readonly FileChecksum _readSum;
+	    private readonly FileChecksum _writeSum;
+
 	    /// <summary>
 		/// Reads the next transaction from the transaction file and updates the checksum of the last known
 		/// position.
@@ -31,43 +36,55 @@ namespace pvc.Adapters.TransactionFile.Queues.TransactionFile
 		/// <returns></returns>
 		public override T Dequeue()
 		{
-			while (true)
-			{
-				if (_writeChecksum.GetValue() > _fileStream.Position)
-				{
-					var tmp = (T)_formatter.Deserialize(_fileStream);
-					_checksum.SetValue(_fileStream.Position);
-					return tmp;
-				}
-				Thread.Sleep(1);
-			}
+            lock (_sync)
+            {
+                while (true)
+                {
+                    var value = _writeSum.GetValue();
+                    if (value > FileStream.Position)
+                    {
+                        var item = (T) Formatter.Deserialize(FileStream);
+                        _readSum.SetValue(FileStream.Position);
+                        return item;
+                    }
+                    Thread.Sleep(1);
+                }
+            }
 		}
 
         public CheckSummedTransactionFileReader(string filename, string checksumName, IFormatter formatter) : base(filename, formatter)
 		{
 			if (checksumName == null)
 			{
-				throw new ArgumentNullException("ChecksumName");
+				throw new ArgumentNullException("checksumName");
 			}
 
 			var fi = new FileInfo(filename);
-			var checksumfile = string.Format("{0}\\{1}.chk", fi.DirectoryName, checksumName);
-			var writeCheksumFilename = string.Format("{0}\\{1}.chk", fi.DirectoryName, fi.Name);
-
-            if (_logger.IsDebugEnabled)
-            {
-                _logger.Debug(string.Format("Using checksum file: {0}", checksumfile));
+			var readFile = string.Format(TransactionFile.ReadChecksumMask, fi.DirectoryName, checksumName);
+			if (Logger.IsDebugEnabled)
+             {
+                Logger.Debug(string.Format("Using read checksum file: {0}", readFile));
             }
-			
-            _checksum = new FileChecksum(checksumfile);
-			_writeChecksum = new FileChecksum(writeCheksumFilename);
+			_readSum = new FileChecksum(readFile);
 
-            if (_logger.IsDebugEnabled)
+            var writeFile = string.Format(TransactionFile.WriteChecksumMask, fi.DirectoryName, fi.Name);
+            if (Logger.IsDebugEnabled)
             {
-                _logger.Debug(string.Format("Setting initial position to: {0}", _checksum.GetValue()));
+                Logger.Debug(string.Format("Using write checksum file: {0}", writeFile));
             }
-			
-            _fileStream.Seek(_checksum.GetValue(), SeekOrigin.Begin);
+            _writeSum = new FileChecksum(writeFile);
+            
+            SetInitialPosition();
 		}
+
+	    private void SetInitialPosition()
+	    {
+	        var position = _readSum.GetValue();
+	        if (Logger.IsDebugEnabled)
+	        {
+	            Logger.Debug(string.Format("Setting initial read position to: {0}", position));
+	        }
+	        FileStream.Seek(position, SeekOrigin.Begin);
+	    }
 	}
 }

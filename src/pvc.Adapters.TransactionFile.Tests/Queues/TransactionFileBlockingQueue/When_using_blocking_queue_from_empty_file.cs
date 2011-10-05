@@ -1,29 +1,22 @@
-﻿using System;
 using System.Threading;
 using NUnit.Framework;
 using pvc.Adapters.TransactionFile.Queues;
-using pvc.Adapters.TransactionFile.Tests.Fixtures;
+using pvc.Adapters.TransactionFile.Tests._Fixtures;
 
 namespace pvc.Adapters.TransactionFile.Tests.Queues.TransactionFileBlockingQueue
 {
     [TestFixture]
-    public class When_using_blocking_queue : PopulatedTransactionFileFixture<object>
+    public class When_using_blocking_queue_from_empty_file : EmptyTransactionFileFixture<object>
     {
         private readonly TransactionFileBlockingQueue<object> _queue;
-        private const string Filename = "When_using_blocking_queue.dat";
+        private const string Filename = "When_using_blocking_queue_from_empty_file.dat";
 
-        public When_using_blocking_queue() : base(Filename, 3)
+        public When_using_blocking_queue_from_empty_file() : base(Filename)
         {
             _queue = new TransactionFileBlockingQueue<object>(Filename);
-        }
-
-        [Test]
-        public void filename_is_required()
-        {
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                new TransactionFileBlockingQueue<object>(null);
-            });
+            _queue.Enqueue(new object());
+            _queue.Enqueue(new object());
+            _queue.Enqueue(new object());
         }
 
         [Test]
@@ -42,22 +35,19 @@ namespace pvc.Adapters.TransactionFile.Tests.Queues.TransactionFileBlockingQueue
         [Test]
         public void queue_blocks_when_exhausted_until_enqueued()
         {
-            // TODO: Replace with _queue.Count when that test passes
-            var count = 3;
-            while (count  /* _queue.Count */> 0)
+            while (_queue.Count > 0)
             {
                 var sequential = _queue.Dequeue();
                 Assert.IsNotNull(sequential);
-                count--;
             }
-            
+
             var background = false;
             ThreadPool.QueueUserWorkItem(s =>
-                                             {
-                                                 Thread.Sleep(2000);
-                                                 background = true;
-                                                 _queue.Enqueue(new object());
-                                             });
+            {
+                Thread.Sleep(500);
+                background = true;
+                _queue.Enqueue(new object());
+            });
 
             var final = _queue.Dequeue();
             Assert.IsNotNull(final);

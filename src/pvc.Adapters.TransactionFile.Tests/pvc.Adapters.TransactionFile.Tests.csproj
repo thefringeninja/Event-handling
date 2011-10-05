@@ -43,13 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Fixtures\FileChecksumFixture.cs" />
+    <Compile Include="Integration\With_multiple_transaction_file_consumers_for_blocking_queue.cs" />
+    <Compile Include="Queues\TransactionFileBlockingQueue\When_using_blocking_queue_from_empty_file.cs" />
+    <Compile Include="_Fixtures\BlockingQueueFixture.cs" />
+    <Compile Include="_Fixtures\FileChecksumFixture.cs" />
     <Compile Include="Checksums\When_using_file_checksum.cs" />
-    <Compile Include="Fixtures\EmptyTransactionFileFixture.cs" />
+    <Compile Include="_Fixtures\EmptyTransactionFileFixture.cs" />
     <Compile Include="Integration\With_single_transaction_file_consumer.cs" />
-    <Compile Include="Queues\TransactionFileBlockingQueue\When_using_blocking_queue.cs" />
+    <Compile Include="Queues\TransactionFileBlockingQueue\When_using_blocking_queue_from_existing_file.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Fixtures\PopulatedTransactionFileFixture.cs" />
+    <Compile Include="_Fixtures\PopulatedTransactionFileFixture.cs" />
     <Compile Include="Queues\TransactionFile\TransactionFileReader\When_dequeuing_a_reader.cs" />
     <Compile Include="Queues\TransactionFile\TransactionFileReader\When_instantiating_a_reader.cs" />
   </ItemGroup>

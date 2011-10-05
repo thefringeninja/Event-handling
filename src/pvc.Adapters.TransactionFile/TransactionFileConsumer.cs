@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization.Formatters.Binary;
+﻿using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using pvc.Adapters.TransactionFile.Queues.TransactionFile;
 using pvc.Core;
 
@@ -14,7 +15,7 @@ namespace pvc.Adapters.TransactionFile
 
 		public TransactionFileConsumer(string filename)
 		{
-			_writer = new TransactionFileWriter<T>(filename, true, new BinaryFormatter());
+			_writer = new TransactionFileWriter<T>(filename, (IFormatter) new BinaryFormatter());
 		}
 
 		public void Handle(T message)

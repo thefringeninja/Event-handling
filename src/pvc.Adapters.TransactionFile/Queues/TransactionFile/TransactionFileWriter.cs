@@ -13,22 +13,24 @@ namespace pvc.Adapters.TransactionFile.Queues.TransactionFile
     /// interface but could also be 'object' in order to allow untyped access</typeparam>
     internal class TransactionFileWriter<T> : IDisposable
     {
-        private readonly IChecksum _writeChecksum;
+        private static readonly object _sync = new object();
+        private readonly IChecksum _checksum;
         private readonly IFormatter _formatter;
         private readonly FileStream _fileStream;
 		private readonly ILog _logger;
 
-        public TransactionFileWriter(string filename, IFormatter formatter): this(filename, true, formatter)
+        public string ChecksumName
         {
-
+            get { return _checksum.Name; }
         }
-        
-        public TransactionFileWriter(string filename, bool useMutex, IFormatter formatter)
+
+        public TransactionFileWriter(string filename, IFormatter formatter)
         {
             if (filename == null)
             {
                 throw new ArgumentNullException("filename");
             }
+
             if (formatter == null)
             {
                 throw new ArgumentNullException("Formatter");
@@ -43,22 +45,25 @@ namespace pvc.Adapters.TransactionFile.Queues.TransactionFile
 
             _fileStream = File.Open(filename, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
             
-            var filePath = string.Format("{0}\\{1}.chk", fi.DirectoryName, fi.Name);
+            var filePath = string.Format(TransactionFile.WriteChecksumMask, fi.DirectoryName, fi.Name);
 			if (_logger.IsDebugEnabled)
 			{
 			    _logger.Debug(string.Format("Opening Checksum: {0}", filename));
 			}
 
-            _writeChecksum = new FileChecksum(filePath);
+            _checksum = new FileChecksum(filePath);
             _formatter = formatter;
         }
 
         public void Enqueue(T value)
         {
-            _fileStream.Seek(_writeChecksum.GetValue(), SeekOrigin.Begin);
-            _formatter.Serialize(_fileStream, value);
-            _fileStream.Flush();
-            _writeChecksum.SetValue(_fileStream.Position);
+            lock(_sync)
+            {
+                _fileStream.Seek(_checksum.GetValue(), SeekOrigin.Begin);
+                _formatter.Serialize(_fileStream, value);
+                _fileStream.Flush();
+                _checksum.SetValue(_fileStream.Position);
+            }
         }
 
         public void Dispose()
