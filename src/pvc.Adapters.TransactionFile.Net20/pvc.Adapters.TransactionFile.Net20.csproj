@@ -75,6 +75,9 @@
     <Compile Include="..\pvc.Adapters.TransactionFile\Queues\TransactionFile\ChecksummedTransactionFileReader.cs">
       <Link>Queues\TransactionFile\ChecksummedTransactionFileReader.cs</Link>
     </Compile>
+    <Compile Include="..\pvc.Adapters.TransactionFile\Queues\TransactionFile\TransactionFile.cs">
+      <Link>TransactionFile.cs</Link>
+    </Compile>
     <Compile Include="..\pvc.Adapters.TransactionFile\Queues\TransactionFile\TransactionFileReader.cs">
       <Link>Queues\TransactionFile\TransactionFileReader.cs</Link>
     </Compile>
