@@ -18,7 +18,7 @@ namespace pvc.Adapters.TransactionFile.Queues.TransactionFile
     /// Usually this will be a shared base class or interface but for untyped access, it could just be <code>object</code></typeparam>
 	internal class CheckSummedTransactionFileReader<T> : TransactionFileReader<T>
 	{
-	    private static readonly object _sync = new object();
+	    private readonly object _sync = new object();
 		private readonly FileChecksum _readSum;
 	    private readonly FileChecksum _writeSum;
 
@@ -34,25 +34,25 @@ namespace pvc.Adapters.TransactionFile.Queues.TransactionFile
 		/// beforehand you may do a transaction twice.
 		/// </remarks>
 		/// <returns></returns>
-		public override T Dequeue()
-		{
-            lock (_sync)
-            {
-                while (true)
-                {
-                    var value = _writeSum.GetValue();
-                    if (value > FileStream.Position)
-                    {
-                        var item = (T) Formatter.Deserialize(FileStream);
-                        _readSum.SetValue(FileStream.Position);
-                        return item;
-                    }
-                    Thread.Sleep(1);
-                }
-            }
-		}
+        public override T Dequeue()
+	    {
+	        while (true)
+	        {
+	            var value = _writeSum.GetValue();
+	            if (value > FileStream.Position)
+	            {
+	                lock (_sync) // Locking outside blocking can cause deadlocks!
+	                {
+	                    var item = (T) Formatter.Deserialize(FileStream);
+	                    _readSum.SetValue(FileStream.Position);
+	                    return item;
+	                }
+	            }
+	            Thread.Sleep(1);
+	        }
+	    }
 
-        public CheckSummedTransactionFileReader(string filename, string checksumName, IFormatter formatter) : base(filename, formatter)
+	    public CheckSummedTransactionFileReader(string filename, string checksumName, IFormatter formatter) : base(filename, formatter)
 		{
 			if (checksumName == null)
 			{

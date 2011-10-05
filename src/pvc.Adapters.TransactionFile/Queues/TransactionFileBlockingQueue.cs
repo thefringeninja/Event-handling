@@ -19,7 +19,6 @@ namespace pvc.Adapters.TransactionFile.Queues
     /// </remarks>
     public class TransactionFileBlockingQueue<T> : IBlockingQueue<T>
     {
-        private static readonly object _sync = new object();
         private readonly TransactionFileWriter<T> _writer;
         private readonly TransactionFileReader<T> _reader;
         private readonly string _name;

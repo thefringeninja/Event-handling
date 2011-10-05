@@ -13,7 +13,6 @@ namespace pvc.Adapters.TransactionFile.Queues.TransactionFile
     /// interface but could also be 'object' in order to allow untyped access</typeparam>
     internal class TransactionFileWriter<T> : IDisposable
     {
-        private static readonly object _sync = new object();
         private readonly IChecksum _checksum;
         private readonly IFormatter _formatter;
         private readonly FileStream _fileStream;
@@ -57,13 +56,10 @@ namespace pvc.Adapters.TransactionFile.Queues.TransactionFile
 
         public void Enqueue(T value)
         {
-            lock(_sync)
-            {
-                _fileStream.Seek(_checksum.GetValue(), SeekOrigin.Begin);
-                _formatter.Serialize(_fileStream, value);
-                _fileStream.Flush();
-                _checksum.SetValue(_fileStream.Position);
-            }
+            _fileStream.Seek(_checksum.GetValue(), SeekOrigin.Begin);
+            _formatter.Serialize(_fileStream, value);
+            _fileStream.Flush();
+            _checksum.SetValue(_fileStream.Position);
         }
 
         public void Dispose()

@@ -12,7 +12,7 @@ namespace pvc.Adapters.TransactionFile.Queues.TransactionFile
 	/// <typeparam name="T">The type of transactions to read, generally this will be a shared base class or interface but could also be 'object' in order to allow untyped access</typeparam>
 	internal class TransactionFileReader<T>
 	{
-        private static readonly object _sync = new object();
+        private readonly object _sync = new object();
 		
         protected FileStream FileStream;
 		protected IFormatter Formatter;
