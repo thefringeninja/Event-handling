@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace pvc.Core
 {
-	public class ByTypeDispatcher<TBaseMessage> : Consumes<TBaseMessage> where TBaseMessage : Message
+    public class ByTypeDispatcher<TBaseMessage> : IDispatcher<TBaseMessage> where TBaseMessage : Message
 	{
 		private readonly Dictionary<Type, Multiplexor<TBaseMessage>> _subscriptions = new Dictionary<Type, Multiplexor<TBaseMessage>>();
 

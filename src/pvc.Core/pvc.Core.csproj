@@ -50,6 +50,8 @@
     <Compile Include="EventAggregator.cs" />
     <Compile Include="Bus\IBus.cs" />
     <Compile Include="IBlockingQueue.cs" />
+    <Compile Include="IDispatcher.cs" />
+    <Compile Include="IEventAggregator.cs" />
     <Compile Include="IMessagePublisher.cs" />
     <Compile Include="InMemoryBlockingQueue.cs" />
     <Compile Include="InMemoryQueue.cs" />

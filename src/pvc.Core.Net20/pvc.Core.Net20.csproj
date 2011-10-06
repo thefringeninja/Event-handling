@@ -78,6 +78,12 @@
     <Compile Include="..\pvc.Core\IBlockingQueue.cs">
       <Link>IBlockingQueue.cs</Link>
     </Compile>
+    <Compile Include="..\pvc.Core\IDispatcher.cs">
+      <Link>IDispatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\IEventAggregator.cs">
+      <Link>IEventAggregator.cs</Link>
+    </Compile>
     <Compile Include="..\pvc.Core\IMessagePublisher.cs">
       <Link>IMessagePublisher.cs</Link>
     </Compile>

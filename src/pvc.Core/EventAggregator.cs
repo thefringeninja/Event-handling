@@ -1,6 +1,6 @@
 ﻿namespace pvc.Core
 {
-	public class EventAggregator<TBase> where TBase:Message
+    public class EventAggregator<TBase> : IEventAggregator<TBase> where TBase : Message
 	{
 		private readonly ByTypeDispatcher<TBase> _dispatcher;
 		private readonly Combiner<TBase> _combiner;
