@@ -15,7 +15,7 @@ namespace pvc.Core
 			return consumer.Handle;
 		}
 
-		public static void Consume<T>(this Consumes<T> consumer, T message) where T:Message
+		public static void TryConsume<T>(this Consumes<T> consumer, T message) where T:Message
 		{
 			if (consumer == null) return;
 			consumer.Handle(message);

@@ -50,23 +50,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Checksums\FileChecksum.cs" />
-    <Compile Include="IBlockingQueue.cs" />
     <Compile Include="IChecksum.cs" />
-    <Compile Include="Processing\HashedProcessorFactory.cs" />
-    <Compile Include="Processing\ICommandProcessor.cs" />
-    <Compile Include="Processing\ICommandProcessorFactory.cs" />
-    <Compile Include="Processing\Instrumentation\IQueueProcessorInstrumentation.cs" />
-    <Compile Include="Processing\Instrumentation\WMIQueueProcessorInstrumentation.cs" />
-    <Compile Include="Processing\QueueProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queues\InMemoryBlockingQueue.cs" />
     <Compile Include="Queues\TransactionFileBlockingQueue.cs" />
-    <Compile Include="Queues\TransactionFile\ChecksummedTransactionFileReader.cs" />
+    <Compile Include="Queues\TransactionFile\CheckSummedTransactionFileReader.cs" />
     <Compile Include="Queues\TransactionFile\TransactionFile.cs" />
     <Compile Include="Queues\TransactionFile\TransactionFileReader.cs" />
     <Compile Include="Queues\TransactionFile\TransactionFileWriter.cs" />
     <Compile Include="TransactionFileConsumer.cs" />
-    <Compile Include="TransactionFileProducer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

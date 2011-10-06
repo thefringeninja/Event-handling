@@ -1,15 +1,16 @@
+using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using NUnit.Framework;
 using pvc.Adapters.TransactionFile.Queues.TransactionFile;
 using pvc.Adapters.TransactionFile.Tests._Fixtures;
 
-namespace pvc.Adapters.TransactionFile.Tests.Queues.TransactionFile.TransactionFileReader
+namespace pvc.Adapters.TransactionFile.Tests.Queues.TransactionFile.CheckSummedTransactionFileReader
 {
     [TestFixture]
     public class When_dequeuing_a_reader : PopulatedTransactionFileFixture<object>
     {
-        private const string Filename = "When_dequeuing_a_reader";
+        private const string Filename = "When_dequeuing_a_checksummed_reader";
 
         public When_dequeuing_a_reader() : base(Filename, 3)
         {
@@ -19,7 +20,10 @@ namespace pvc.Adapters.TransactionFile.Tests.Queues.TransactionFile.TransactionF
         [Test]
         public void dequeued_item_exists()
         {
-            var reader = new TransactionFileReader<object>(Filename, new BinaryFormatter());
+            const string filename = "dequeued_item_exists";
+            CleanChecksumFile(filename);
+
+            var reader = new CheckSummedTransactionFileReader<object>(Filename, "dequeued_item_exists", new BinaryFormatter());
             var item = reader.Dequeue();
             Assert.IsNotNull(item);
         }
@@ -27,6 +31,9 @@ namespace pvc.Adapters.TransactionFile.Tests.Queues.TransactionFile.TransactionF
         [Test]
         public void file_exhaustion_causes_blocking_until_data_is_present()
         {
+            const string filename = "file_exhaustion_causes_blocking_until_data_is_present";
+            CleanChecksumFile(filename);
+
             var background = false;
             ThreadPool.QueueUserWorkItem(
                 s =>
@@ -37,8 +44,8 @@ namespace pvc.Adapters.TransactionFile.Tests.Queues.TransactionFile.TransactionF
                         writer.Enqueue(new object());
                     }
                 );
-            
-            var reader = new TransactionFileReader<object>(Filename, new BinaryFormatter());
+
+            var reader = new CheckSummedTransactionFileReader<object>(Filename, filename, new BinaryFormatter());
             reader.Dequeue();
             reader.Dequeue();
             reader.Dequeue();
@@ -49,6 +56,9 @@ namespace pvc.Adapters.TransactionFile.Tests.Queues.TransactionFile.TransactionF
         [Test]
         public void dequeues_can_come_from_multiple_consumers()
         {
+            const string filename = "dequeues_can_come_from_multiple_consumers";
+            CleanChecksumFile(filename);
+
             int[] count = { Count };
             var block = new ManualResetEvent(false);
 
@@ -58,7 +68,7 @@ namespace pvc.Adapters.TransactionFile.Tests.Queues.TransactionFile.TransactionF
                     s =>
                     {
                         Thread.Sleep(200);
-                        var reader = new TransactionFileReader<object>(Filename, new BinaryFormatter());
+                        var reader = new CheckSummedTransactionFileReader<object>(Filename, filename, new BinaryFormatter());
                         var item = reader.Dequeue();
                         Assert.IsNotNull(item);
                         Interlocked.Decrement(ref count[0]);
@@ -70,6 +80,15 @@ namespace pvc.Adapters.TransactionFile.Tests.Queues.TransactionFile.TransactionF
             }
 
             block.WaitOne();
+        }
+
+        private static void CleanChecksumFile(string filename)
+        {
+            if (File.Exists(filename + ".read.chk"))
+            {
+                File.Delete(filename + ".read.chk");
+            }
+            Assert.IsFalse(File.Exists(filename + ".read.chk"));
         }
     }
 }

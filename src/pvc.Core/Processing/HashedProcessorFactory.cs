@@ -17,6 +17,7 @@ namespace pvc.Core.Processing
             {
                 throw new ArgumentNullException("processor");
             }
+
             IList<ICommandProcessor<T>> tmp;
             _table.TryGetValue(type, out tmp);
             if (tmp == null)

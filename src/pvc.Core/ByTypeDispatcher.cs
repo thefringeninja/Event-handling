@@ -24,8 +24,11 @@ namespace pvc.Core
 			Publish(message, t);
 			do
 			{
-				t = t.BaseType;
-				Publish(message, t);
+			    if (t != null)
+			    {
+			        t = t.BaseType;
+			    }
+			    Publish(message, t);
 			} while (t != typeof(TBaseMessage));
 		}
 

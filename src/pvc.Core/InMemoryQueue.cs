@@ -1,14 +1,27 @@
-﻿//using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 
 namespace pvc.Core
 {
 	public class InMemoryQueue<T> : IQueue<T> 
 	{
-		private readonly Queue<T> _queue = new Queue<T>(); //make this a concurrent queue, need to build on 3.5 for mono now
+        private readonly Queue<T> _queue; // TODO make this a concurrent queue, need to build on 3.5 for mono for now
+
+        public string Name { get; private set; }
+
+        public InMemoryQueue(string name)
+        {
+            Name = name;
+            _queue = new Queue<T>();
+        }
+
+        public InMemoryQueue(string name, int capacity)
+        {
+            Name = name;
+            _queue = new Queue<T>(capacity);
+        }
         
-        public bool TryDequeue(out T item)
+	    public bool TryDequeue(out T item)
         {
             lock (_queue)
             {

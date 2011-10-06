@@ -63,6 +63,7 @@
     <Compile Include="Processing\Instrumentation\WMIQueueProcessorInstrumentation.cs" />
     <Compile Include="Processing\InstrumentedQueueProcessor.cs" />
     <Compile Include="Processing\IQueueProcessor.cs" />
+    <Compile Include="Processing\QueueProcessor.cs" />
     <Compile Include="Produces.cs" />
     <Compile Include="QueueReader.cs" />
     <Compile Include="QueueWriter.cs" />

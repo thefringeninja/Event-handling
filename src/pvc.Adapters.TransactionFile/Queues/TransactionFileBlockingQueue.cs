@@ -1,12 +1,9 @@
-#if NET20
-#define UseOlderReaderWriter
-#endif
-
 using System;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using pvc.Adapters.TransactionFile.Queues.TransactionFile;
+using pvc.Core;
 
 namespace pvc.Adapters.TransactionFile.Queues
 {
@@ -59,10 +56,26 @@ namespace pvc.Adapters.TransactionFile.Queues
             get { return _name; }
         }
 
+        public bool TryDequeue(out T item)
+        {
+            item = Dequeue();
+            return true;
+        }
+
         public void Enqueue(T data)
         {
             _writer.Enqueue(data);
             Interlocked.Increment(ref _count);
+        }
+
+        public void MarkComplete(T item)
+        {
+            
+        }
+
+        public void Requeue(T item)
+        {
+            Enqueue(item);
         }
 
         public T Dequeue()

@@ -44,7 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Integration\With_multiple_transaction_file_consumers_for_blocking_queue.cs" />
+    <Compile Include="Processing\ContinuousInstrumentedTransactionFileProducer.cs" />
+    <Compile Include="Processing\InstrumentedTransactionFileProducer.cs" />
+    <Compile Include="_Fixtures\InstrumentedProcessorFixture.cs" />
+    <Compile Include="Processing\With_instrumented_processor.cs" />
     <Compile Include="Queues\TransactionFileBlockingQueue\When_using_blocking_queue_from_empty_file.cs" />
+    <Compile Include="Queues\TransactionFile\CheckSummedTransactionFileReader\When_dequeuing_a_reader.cs" />
+    <Compile Include="Queues\TransactionFile\CheckSummedTransactionFileReader\When_instantiating_a_reader.cs" />
     <Compile Include="_Fixtures\BlockingQueueFixture.cs" />
     <Compile Include="_Fixtures\FileChecksumFixture.cs" />
     <Compile Include="Checksums\When_using_file_checksum.cs" />
@@ -63,6 +69,10 @@
     <ProjectReference Include="..\pvc.Adapters.TransactionFile\pvc.Adapters.TransactionFile.csproj">
       <Project>{FB05542F-9C7D-4360-9A6E-2A8E1630666F}</Project>
       <Name>pvc.Adapters.TransactionFile</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\pvc.Core\pvc.Core.csproj">
+      <Project>{B4EBBFC1-A4B7-4F90-86CF-B73E1E6674B1}</Project>
+      <Name>pvc.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

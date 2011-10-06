@@ -78,8 +78,14 @@
     <Compile Include="..\pvc.Core\Extensions.cs">
       <Link>Extensions.cs</Link>
     </Compile>
+    <Compile Include="..\pvc.Core\IBlockingQueue.cs">
+      <Link>IBlockingQueue.cs</Link>
+    </Compile>
     <Compile Include="..\pvc.Core\IMessagePublisher.cs">
       <Link>IMessagePublisher.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\InMemoryBlockingQueue.cs">
+      <Link>InMemoryBlockingQueue.cs</Link>
     </Compile>
     <Compile Include="..\pvc.Core\InMemoryQueue.cs">
       <Link>InMemoryQueue.cs</Link>
@@ -107,6 +113,30 @@
     </Compile>
     <Compile Include="..\pvc.Core\PipeAdapter.cs">
       <Link>PipeAdapter.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\Processing\HashedProcessorFactory.cs">
+      <Link>Processing\HashedProcessorFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\Processing\ICommandProcessor.cs">
+      <Link>Processing\ICommandProcessor.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\Processing\ICommandProcessorFactory.cs">
+      <Link>Processing\ICommandProcessorFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\Processing\Instrumentation\IQueueProcessorInstrumentation.cs">
+      <Link>Processing\Instrumentation\IQueueProcessorInstrumentation.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\Processing\Instrumentation\WMIQueueProcessorInstrumentation.cs">
+      <Link>Processing\Instrumentation\WMIQueueProcessorInstrumentation.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\Processing\InstrumentedQueueProcessor.cs">
+      <Link>Processing\InstrumentedQueueProcessor.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\Processing\IQueueProcessor.cs">
+      <Link>Processing\IQueueProcessor.cs</Link>
+    </Compile>
+    <Compile Include="..\pvc.Core\Processing\QueueProcessor.cs">
+      <Link>Processing\QueueProcessor.cs</Link>
     </Compile>
     <Compile Include="..\pvc.Core\Produces.cs">
       <Link>Produces.cs</Link>

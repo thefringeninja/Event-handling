@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Threading;
 using NUnit.Framework;
+using pvc.Core;
 
 namespace pvc.Adapters.TransactionFile.Tests._Fixtures
 {

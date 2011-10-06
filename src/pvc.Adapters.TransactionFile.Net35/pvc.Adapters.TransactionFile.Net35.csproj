@@ -46,32 +46,8 @@
     <Compile Include="..\pvc.adapters.transactionfile\checksums\FileChecksum.cs">
       <Link>Checksums\FileChecksum.cs</Link>
     </Compile>
-    <Compile Include="..\pvc.Adapters.TransactionFile\IBlockingQueue.cs">
-      <Link>IBlockingQueue.cs</Link>
-    </Compile>
     <Compile Include="..\pvc.Adapters.TransactionFile\IChecksum.cs">
       <Link>IChecksum.cs</Link>
-    </Compile>
-    <Compile Include="..\pvc.adapters.transactionfile\processing\HashedProcessorFactory.cs">
-      <Link>Processing\HashedProcessorFactory.cs</Link>
-    </Compile>
-    <Compile Include="..\pvc.adapters.transactionfile\processing\ICommandProcessor.cs">
-      <Link>Processing\ICommandProcessor.cs</Link>
-    </Compile>
-    <Compile Include="..\pvc.adapters.transactionfile\processing\ICommandProcessorFactory.cs">
-      <Link>Processing\ICommandProcessorFactory.cs</Link>
-    </Compile>
-    <Compile Include="..\pvc.adapters.transactionfile\processing\instrumentation\IQueueProcessorInstrumentation.cs">
-      <Link>Processing\Instrumentation\IQueueProcessorInstrumentation.cs</Link>
-    </Compile>
-    <Compile Include="..\pvc.adapters.transactionfile\processing\instrumentation\WMIQueueProcessorInstrumentation.cs">
-      <Link>Processing\Instrumentation\WMIQueueProcessorInstrumentation.cs</Link>
-    </Compile>
-    <Compile Include="..\pvc.adapters.transactionfile\processing\QueueProcessor.cs">
-      <Link>Processing\QueueProcessor.cs</Link>
-    </Compile>
-    <Compile Include="..\pvc.adapters.transactionfile\queues\InMemoryBlockingQueue.cs">
-      <Link>Queues\InMemoryBlockingQueue.cs</Link>
     </Compile>
     <Compile Include="..\pvc.adapters.transactionfile\queues\TransactionFileBlockingQueue.cs">
       <Link>Queues\TransactionFileBlockingQueue.cs</Link>
@@ -90,9 +66,6 @@
     </Compile>
     <Compile Include="..\pvc.Adapters.TransactionFile\TransactionFileConsumer.cs">
       <Link>TransactionFileConsumer.cs</Link>
-    </Compile>
-    <Compile Include="..\pvc.Adapters.TransactionFile\TransactionFileProducer.cs">
-      <Link>TransactionFileProducer.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

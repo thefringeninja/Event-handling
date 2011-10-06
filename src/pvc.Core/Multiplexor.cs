@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace pvc.Core
@@ -10,9 +9,11 @@ namespace pvc.Core
 
 		public Multiplexor() : this(null)
 		{
+
 		}
 
-		public void AttachConsumer(Consumes<T> consumer) {
+		public void AttachConsumer(Consumes<T> consumer)
+        {
 			_consumers.Add(consumer);
 		}
 		
