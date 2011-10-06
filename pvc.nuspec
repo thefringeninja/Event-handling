@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 		<id>pvc</id>
-		<version>0.0.3</version>
+		<version>0.0.4</version>
 		<authors>Gregory Young</authors>
 		<owners>Daniel Crenna</owners>
 		<summary>A pipes library for .NET</summary>
