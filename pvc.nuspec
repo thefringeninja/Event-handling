@@ -6,7 +6,10 @@
 		<authors>Gregory Young</authors>
 		<owners>Daniel Crenna</owners>
 		<summary>A pipes library for .NET</summary>
-		<description>A pipes library for .NET</description>
+		<description>
+			A pipes library for .NET, enabling flexible configuration of producers and consumers in a distributed application.
+			Includes default adapters for MSMQ and serialized transaction files.
+		</description>
 		<language>en-US</language>
 		<projectUrl>http://github.com/danielcrenna/pvc</projectUrl>
 		<licenseUrl>https://github.com/danielcrenna/pvc/blob/master/LICENSE</licenseUrl>
