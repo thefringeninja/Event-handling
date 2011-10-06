@@ -3,7 +3,7 @@ using System.IO;
 
 namespace pvc.Adapters.TransactionFile.Checksums
 {
-    internal class FileChecksum : IChecksum, IDisposable
+    public class FileChecksum : IChecksum, IDisposable
     {
         private static readonly object _sync = new object();
 
