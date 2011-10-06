@@ -43,8 +43,8 @@
     <Reference Include="pvc.Projections, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\pvc.0.0.2\lib\net35\pvc.Projections.dll</HintPath>
     </Reference>
-    <Reference Include="RabbitMQ.Client, Version=2.5.1.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
-      <HintPath>..\packages\RabbitMQ.Client.2.5.1\lib\net30\RabbitMQ.Client.dll</HintPath>
+    <Reference Include="RabbitMQ.Client">
+      <HintPath>..\packages\RabbitMQ.Client.2.6.1\lib\net30\RabbitMQ.Client.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
