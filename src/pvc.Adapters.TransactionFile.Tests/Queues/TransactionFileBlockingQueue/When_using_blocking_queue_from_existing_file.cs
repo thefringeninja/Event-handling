@@ -49,5 +49,12 @@ namespace pvc.Adapters.TransactionFile.Tests.Queues.TransactionFileBlockingQueue
             Assert.IsNotNull(final);
             Assert.IsTrue(background);
         }
+
+        [Test]
+        public void record_is_available()
+        {
+            var queue = new TransactionFileBlockingQueue<object>(Filename);
+            Assert.IsTrue(queue.RecordAvailable);
+        }
     }
 }

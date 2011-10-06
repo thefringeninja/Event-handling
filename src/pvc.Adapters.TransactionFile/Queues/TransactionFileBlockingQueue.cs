@@ -2,6 +2,7 @@ using System;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
+using pvc.Adapters.TransactionFile.Checksums;
 using pvc.Adapters.TransactionFile.Queues.TransactionFile;
 using pvc.Core;
 
@@ -16,13 +17,18 @@ namespace pvc.Adapters.TransactionFile.Queues
     /// </remarks>
     public class TransactionFileBlockingQueue<T> : IBlockingQueue<T>
     {
+        private readonly IChecksum _recordChecksum;
         private readonly TransactionFileWriter<T> _writer;
         private readonly TransactionFileReader<T> _reader;
         private readonly string _name;
-
+        
         public bool RecordAvailable
         {
-            get { return true; } // TODO: make look at checksums
+            get
+            {
+                var value = _recordChecksum.GetValue();
+                return value > 0;
+            }
         }
 
         public TransactionFileBlockingQueue(string transactionFilename, string checkSumName, IFormatter formatter)
@@ -43,6 +49,8 @@ namespace pvc.Adapters.TransactionFile.Queues
             _reader = checkSumName != null
                           ? new CheckSummedTransactionFileReader<T>(transactionFilename, checkSumName, formatter)
                           : new TransactionFileReader<T>(transactionFilename, formatter);
+
+            _recordChecksum = new FileChecksum(_writer.ChecksumName);
         }
 
         public TransactionFileBlockingQueue(string transactionFilename, string checkSumName) : this(transactionFilename, checkSumName, null) { }
@@ -85,8 +93,18 @@ namespace pvc.Adapters.TransactionFile.Queues
             return item;
         }
 
+        public bool IsBlocking
+        {
+            get { return _reader.IsBlocking; }
+        }
+
         private long _count;
 
+        /// <summary>
+        /// If this queue instance was responsible for all <see cref="Enqueue" /> or <see cref="Requeue"/> actions, this count
+        /// will reflect the current number of items in the queue; if it was constructed from an existing <see cref="IChecksum"/>,
+        /// then this number will not reflect the actual count.
+        /// </summary>
         public int Count { get { return (int)Interlocked.Read(ref _count); } }
         
         #endregion

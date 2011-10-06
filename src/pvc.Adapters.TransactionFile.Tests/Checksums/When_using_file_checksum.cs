@@ -18,6 +18,12 @@ namespace pvc.Adapters.TransactionFile.Tests.Checksums
         }
 
         [Test]
+        public void name_is_set()
+        {
+            Assert.AreEqual("When_using_file_checksum", Checksum.Name);
+        }
+
+        [Test]
         public void constructing_results_in_existing_file_with_default_value()
         {
             Assert.IsNotNull(Checksum);

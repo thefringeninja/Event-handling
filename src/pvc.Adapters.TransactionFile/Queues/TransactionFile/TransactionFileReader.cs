@@ -10,13 +10,18 @@ namespace pvc.Adapters.TransactionFile.Queues.TransactionFile
 	/// Reads transactions from the transaction file
 	/// </summary>
 	/// <typeparam name="T">The type of transactions to read, generally this will be a shared base class or interface but could also be 'object' in order to allow untyped access</typeparam>
-	internal class TransactionFileReader<T>
+	internal class TransactionFileReader<T> : IDisposable
 	{
         private readonly object _sync = new object();
-		
-        protected FileStream FileStream;
-		protected IFormatter Formatter;
+	    protected internal FileStream FileStream { get; private set; }
+	    protected IFormatter Formatter;
 	    protected ILog Logger;
+        private volatile bool _blocking;
+
+	    public bool IsBlocking
+	    {
+	        get { return _blocking; }
+	    }
 
 		/// <summary>
 		/// Reads the next item off of the stream, blocking if one is not available.
@@ -30,10 +35,12 @@ namespace pvc.Adapters.TransactionFile.Queues.TransactionFile
                 {
                     lock (_sync) // Locking outside blocking can cause deadlocks!
                     {
+                        _blocking = false;
                         var o = Formatter.Deserialize(FileStream);
                         return (T) o;
                     }
                 }
+                _blocking = true;
                 Thread.Sleep(1);
             }
 		}
@@ -51,14 +58,20 @@ namespace pvc.Adapters.TransactionFile.Queues.TransactionFile
 			
             Logger = LogManager.GetLogger(GetType());
 			Formatter = formatter;
-			var fi = new FileInfo(filename); 
+			var fi = new FileInfo(filename);
 			
-            if (Logger.IsDebugEnabled)
-			{
-                Logger.Debug(string.Format("Opening Transaction File: {0}", filename));
-			}
+            Logger.DebugFormat("Opening Transaction File: {0}", filename);
 			
             FileStream = fi.Open(FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite);
 		}
+
+	    public void Dispose()
+	    {
+	        if(FileStream != null)
+	        {
+	            FileStream.Dispose();
+	            FileStream = null;
+	        }
+	    }
 	}
 }

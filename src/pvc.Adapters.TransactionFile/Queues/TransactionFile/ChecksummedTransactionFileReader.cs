@@ -61,17 +61,11 @@ namespace pvc.Adapters.TransactionFile.Queues.TransactionFile
 
 			var fi = new FileInfo(filename);
 			var readFile = string.Format(TransactionFile.ReadChecksumMask, fi.DirectoryName, checksumName);
-			if (Logger.IsDebugEnabled)
-             {
-                Logger.Debug(string.Format("Using read checksum file: {0}", readFile));
-            }
+            Logger.DebugFormat("Using read checksum file: {0}", readFile);
 			_readSum = new FileChecksum(readFile);
 
             var writeFile = string.Format(TransactionFile.WriteChecksumMask, fi.DirectoryName, fi.Name);
-            if (Logger.IsDebugEnabled)
-            {
-                Logger.Debug(string.Format("Using write checksum file: {0}", writeFile));
-            }
+            Logger.DebugFormat("Using write checksum file: {0}", writeFile);
             _writeSum = new FileChecksum(writeFile);
             
             SetInitialPosition();
@@ -80,10 +74,7 @@ namespace pvc.Adapters.TransactionFile.Queues.TransactionFile
 	    private void SetInitialPosition()
 	    {
 	        var position = _readSum.GetValue();
-	        if (Logger.IsDebugEnabled)
-	        {
-	            Logger.Debug(string.Format("Setting initial read position to: {0}", position));
-	        }
+            Logger.DebugFormat("Setting initial read position to: {0}", position);
 	        FileStream.Seek(position, SeekOrigin.Begin);
 	    }
 	}

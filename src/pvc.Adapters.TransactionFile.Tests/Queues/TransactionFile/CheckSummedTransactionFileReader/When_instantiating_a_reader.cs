@@ -25,5 +25,14 @@ namespace pvc.Adapters.TransactionFile.Tests.Queues.TransactionFile.CheckSummedT
                 new CheckSummedTransactionFileReader<object>("filename.dat", "formatter_is_required", null);
             });
         }
+
+        [Test]
+        public void checksum_name_is_required()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                new CheckSummedTransactionFileReader<object>("filename.dat", null, new BinaryFormatter());
+            });
+        }
     }
 }
