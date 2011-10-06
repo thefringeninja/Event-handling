@@ -32,16 +32,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
-      <HintPath>..\packages\pvc.0.0.2\lib\net20\log4net.dll</HintPath>
+      <HintPath>..\packages\pvc.0.0.3\lib\net20\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="pvc.Adapters.MicrosoftMQ, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\pvc.0.0.3\lib\net20\pvc.Adapters.MicrosoftMQ.dll</HintPath>
     </Reference>
     <Reference Include="pvc.Adapters.TransactionFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\pvc.0.0.2\lib\net20\pvc.Adapters.TransactionFile.dll</HintPath>
+      <HintPath>..\packages\pvc.0.0.3\lib\net20\pvc.Adapters.TransactionFile.dll</HintPath>
     </Reference>
     <Reference Include="pvc.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\pvc.0.0.2\lib\net20\pvc.Core.dll</HintPath>
+      <HintPath>..\packages\pvc.0.0.3\lib\net20\pvc.Core.dll</HintPath>
     </Reference>
     <Reference Include="pvc.Projections, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\pvc.0.0.2\lib\net20\pvc.Projections.dll</HintPath>
+      <HintPath>..\packages\pvc.0.0.3\lib\net20\pvc.Projections.dll</HintPath>
     </Reference>
     <Reference Include="RabbitMQ.Client">
       <HintPath>..\packages\RabbitMQ.Client.2.6.1\lib\net20\RabbitMQ.Client.dll</HintPath>

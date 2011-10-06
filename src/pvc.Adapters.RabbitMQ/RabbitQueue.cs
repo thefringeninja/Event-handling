@@ -74,7 +74,12 @@ namespace pvc.Adapters.RabbitMQ
             _model.BasicReject(_currentDeliveryArgs.DeliveryTag, true);
         }
 
-		public override string ToString()
+	    public string Name
+	    {
+            get { return ToString(); }
+	    }
+
+	    public override string ToString()
 		{
 			return string.Format("{0}:{1}:{2}", _hostName, _exchange, _queue);
 		}
