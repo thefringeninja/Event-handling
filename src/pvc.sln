@@ -35,6 +35,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pvc.Adapters.TransactionFil
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pvc.Adapters.TransactionFile.Tests", "pvc.Adapters.TransactionFile.Tests\pvc.Adapters.TransactionFile.Tests.csproj", "{18B3C3C8-0260-44CB-8CBC-8CDE2BDAB1E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pvc.Adapters.MicrosoftMQ", "pvc.Adapters.MSMQ\pvc.Adapters.MicrosoftMQ.csproj", "{87EC8B04-2BE1-4E77-90BA-421345CB9D6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pvc.Adapters.MicrosoftMQ.Net35", "pvc.Adapters.MicrosoftMQ.Net35\pvc.Adapters.MicrosoftMQ.Net35.csproj", "{66BFD0A4-C4A0-46E3-819E-3B5D0A9BE8F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pvc.Adapters.MicrosoftMQ.Net20", "pvc.Adapters.MicrosoftMQ.Net20\pvc.Adapters.MicrosoftMQ.Net20.csproj", "{6A73B8D1-7B16-4644-97B3-8FE38BED2C67}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -155,6 +161,36 @@ Global
 		{18B3C3C8-0260-44CB-8CBC-8CDE2BDAB1E7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{18B3C3C8-0260-44CB-8CBC-8CDE2BDAB1E7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{18B3C3C8-0260-44CB-8CBC-8CDE2BDAB1E7}.Release|x86.ActiveCfg = Release|Any CPU
+		{87EC8B04-2BE1-4E77-90BA-421345CB9D6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87EC8B04-2BE1-4E77-90BA-421345CB9D6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87EC8B04-2BE1-4E77-90BA-421345CB9D6E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{87EC8B04-2BE1-4E77-90BA-421345CB9D6E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{87EC8B04-2BE1-4E77-90BA-421345CB9D6E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{87EC8B04-2BE1-4E77-90BA-421345CB9D6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87EC8B04-2BE1-4E77-90BA-421345CB9D6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87EC8B04-2BE1-4E77-90BA-421345CB9D6E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{87EC8B04-2BE1-4E77-90BA-421345CB9D6E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{87EC8B04-2BE1-4E77-90BA-421345CB9D6E}.Release|x86.ActiveCfg = Release|Any CPU
+		{66BFD0A4-C4A0-46E3-819E-3B5D0A9BE8F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66BFD0A4-C4A0-46E3-819E-3B5D0A9BE8F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66BFD0A4-C4A0-46E3-819E-3B5D0A9BE8F9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{66BFD0A4-C4A0-46E3-819E-3B5D0A9BE8F9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{66BFD0A4-C4A0-46E3-819E-3B5D0A9BE8F9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{66BFD0A4-C4A0-46E3-819E-3B5D0A9BE8F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66BFD0A4-C4A0-46E3-819E-3B5D0A9BE8F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66BFD0A4-C4A0-46E3-819E-3B5D0A9BE8F9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{66BFD0A4-C4A0-46E3-819E-3B5D0A9BE8F9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{66BFD0A4-C4A0-46E3-819E-3B5D0A9BE8F9}.Release|x86.ActiveCfg = Release|Any CPU
+		{6A73B8D1-7B16-4644-97B3-8FE38BED2C67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A73B8D1-7B16-4644-97B3-8FE38BED2C67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A73B8D1-7B16-4644-97B3-8FE38BED2C67}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6A73B8D1-7B16-4644-97B3-8FE38BED2C67}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6A73B8D1-7B16-4644-97B3-8FE38BED2C67}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6A73B8D1-7B16-4644-97B3-8FE38BED2C67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A73B8D1-7B16-4644-97B3-8FE38BED2C67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A73B8D1-7B16-4644-97B3-8FE38BED2C67}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6A73B8D1-7B16-4644-97B3-8FE38BED2C67}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6A73B8D1-7B16-4644-97B3-8FE38BED2C67}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -163,9 +199,11 @@ Global
 		{ED18A30F-C287-4F5F-B4A8-6F47A579B4A6} = {C1F454DE-21F7-4F39-A7AC-DC8972EE0A99}
 		{9167C12C-0F5D-4F2B-85F3-DAA751077648} = {C1F454DE-21F7-4F39-A7AC-DC8972EE0A99}
 		{26FA2BAE-9D09-444C-8D2F-977F03EE2AAA} = {C1F454DE-21F7-4F39-A7AC-DC8972EE0A99}
+		{66BFD0A4-C4A0-46E3-819E-3B5D0A9BE8F9} = {C1F454DE-21F7-4F39-A7AC-DC8972EE0A99}
 		{477AD8ED-0C5D-48F4-BDB2-80707F1F7200} = {4C8A89EC-515C-4C8A-8BB8-E9E2D5B3CA8E}
 		{D0005373-8959-4147-836A-EBC8E27E016B} = {4C8A89EC-515C-4C8A-8BB8-E9E2D5B3CA8E}
 		{3017821F-1927-4881-8EBE-ECD04CC6E51A} = {4C8A89EC-515C-4C8A-8BB8-E9E2D5B3CA8E}
+		{6A73B8D1-7B16-4644-97B3-8FE38BED2C67} = {4C8A89EC-515C-4C8A-8BB8-E9E2D5B3CA8E}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = EventRunner\EventRunner.csproj

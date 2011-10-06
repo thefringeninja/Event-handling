@@ -28,9 +28,9 @@ namespace pvc.Adapters.MicrosoftMQ
             _receiveQueue = _sendQueue = new MessageQueue(queueName) { Formatter = _formatter };
         }
 
-        public MicrosoftQueue(string sendQueueNames, string receiveQueueName)
+        public MicrosoftQueue(string sendQueueName, string receiveQueueName)
         {
-            _sendQueue = new MessageQueue(sendQueueNames) { Formatter = _formatter };
+            _sendQueue = new MessageQueue(sendQueueName) { Formatter = _formatter };
             _receiveQueue = new MessageQueue(receiveQueueName) { Formatter = _formatter };
         }
 
@@ -64,6 +64,11 @@ namespace pvc.Adapters.MicrosoftMQ
         public void Requeue(T item)
         {
             Enqueue(item);
+        }
+
+        public string Name
+        {
+            get { return _sendQueue.QueueName; }
         }
 
         public virtual bool TryDequeue(out T item)

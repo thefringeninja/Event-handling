@@ -34,10 +34,6 @@
     <Reference Include="log4net">
       <HintPath>..\packages\pvc.0.0.2\lib\net20\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="pvc.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\pvc.0.0.2\lib\net20\pvc.Core.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Messaging" />
@@ -54,6 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\pvc.Core.Net20\pvc.Core.Net20.csproj">
+      <Project>{D0005373-8959-4147-836A-EBC8E27E016B}</Project>
+      <Name>pvc.Core.Net20</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
