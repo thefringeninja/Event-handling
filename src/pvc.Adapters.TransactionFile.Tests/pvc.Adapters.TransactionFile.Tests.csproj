@@ -51,6 +51,7 @@
     <Compile Include="Queues\TransactionFile\TransactionFileWriter\When_disposing_a_writer.cs" />
     <Compile Include="Queues\TransactionFile\TransactionFileWriter\When_enqueuing_a_writer.cs" />
     <Compile Include="Queues\TransactionFile\TransactionFileWriter\When_instantiating_a_writer.cs" />
+    <Compile Include="When_instantiating_blocking_queue.cs" />
     <Compile Include="_Fixtures\InstrumentedProcessorFixture.cs" />
     <Compile Include="Processing\With_instrumented_processor.cs" />
     <Compile Include="Queues\TransactionFileBlockingQueue\When_using_blocking_queue_from_empty_file.cs" />

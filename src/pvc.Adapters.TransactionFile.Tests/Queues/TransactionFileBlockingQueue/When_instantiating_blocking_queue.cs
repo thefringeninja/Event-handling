@@ -39,4 +39,18 @@ namespace pvc.Adapters.TransactionFile.Tests.Queues.TransactionFileBlockingQueue
                     });
         }
     }
+
+    [TestFixture]
+    public class When_disposing_blocking_queue
+    {
+        [Test]
+        public void disposing_is_safe()
+        {
+            var queue = new Queue("disposing_is_safe", "disposing_is_safe");
+            queue.Dispose();
+
+            Assert.IsNull(queue.Reader);
+            Assert.IsNull(queue.Writer);
+        }
+    }
 }

@@ -15,13 +15,14 @@ namespace pvc.Adapters.TransactionFile.Queues
     /// <remarks>
     ///     - Many processes can read and write to this blocking queue; all processes will see all writes.     
     /// </remarks>
-    public class TransactionFileBlockingQueue<T> : IBlockingQueue<T>
+    public class TransactionFileBlockingQueue<T> : IDisposable, IBlockingQueue<T>
     {
         private readonly IChecksum _recordChecksum;
-        private readonly TransactionFileWriter<T> _writer;
-        private readonly TransactionFileReader<T> _reader;
         private readonly string _name;
-        
+
+        internal TransactionFileWriter<T> Writer { get; private set; }
+        internal TransactionFileReader<T> Reader { get; private set; }
+
         public bool RecordAvailable
         {
             get
@@ -44,13 +45,13 @@ namespace pvc.Adapters.TransactionFile.Queues
             }
 
             _name = transactionFilename;
-            _writer = new TransactionFileWriter<T>(transactionFilename, formatter);
+            Writer = new TransactionFileWriter<T>(transactionFilename, formatter);
 
-            _reader = checkSumName != null
+            Reader = checkSumName != null
                           ? new CheckSummedTransactionFileReader<T>(transactionFilename, checkSumName, formatter)
                           : new TransactionFileReader<T>(transactionFilename, formatter);
 
-            _recordChecksum = new FileChecksum(_writer.ChecksumName);
+            _recordChecksum = new FileChecksum(Writer.ChecksumName);
         }
 
         public TransactionFileBlockingQueue(string transactionFilename, string checkSumName) : this(transactionFilename, checkSumName, null) { }
@@ -72,7 +73,7 @@ namespace pvc.Adapters.TransactionFile.Queues
 
         public void Enqueue(T data)
         {
-            _writer.Enqueue(data);
+            Writer.Enqueue(data);
             Interlocked.Increment(ref _count);
         }
 
@@ -88,14 +89,14 @@ namespace pvc.Adapters.TransactionFile.Queues
 
         public T Dequeue()
         {
-            var item = _reader.Dequeue();
+            var item = Reader.Dequeue();
             Interlocked.Decrement(ref _count);
             return item;
         }
 
         public bool IsBlocking
         {
-            get { return _reader.IsBlocking; }
+            get { return Reader.IsBlocking; }
         }
 
         private long _count;
@@ -108,5 +109,20 @@ namespace pvc.Adapters.TransactionFile.Queues
         public int Count { get { return (int)Interlocked.Read(ref _count); } }
         
         #endregion
+
+        public void Dispose()
+        {
+            if(Reader != null)
+            {
+                Reader.Dispose();
+                Reader = null;
+            }
+
+            if(Writer != null)
+            {
+                Writer.Dispose();
+                Writer = null;
+            }
+        }
     }
 }
