@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+	<metadata>
+		<id>pvc-zmq-x64</id>
+		<version>0.0.6</version>
+		<authors>Daniel Crenna</authors>
+		<owners>Daniel Crenna</owners>
+		<description>A 0mq adapter for the PVC library (x64)</description>
+		<summary>A 0mq adapter for the PVC library (x64)</summary>
+		<language>en-US</language>
+		<projectUrl>http://github.com/danielcrenna/pvc</projectUrl>
+		<licenseUrl>https://github.com/danielcrenna/pvc/blob/master/LICENSE</licenseUrl>
+		<iconUrl>http://apitize.com.s3.amazonaws.com/logo-pvc.png</iconUrl>
+		<tags>pvc pipes zeromq zmq 0mq</tags>
+    <dependencies>
+      <dependency id="pvc" version="0.0.6" />
+      <package id="clrzmq2-x64" version="2.1.0.2011100900" />
+    </dependencies>
+	</metadata>
+</package>

@@ -34,3 +34,4 @@ Examples*/
 publish.xml
 TestResults
 src/pvc.1.1.dotCover
+*.dotCover
