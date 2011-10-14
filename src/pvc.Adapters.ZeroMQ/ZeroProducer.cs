@@ -8,6 +8,44 @@ using pvc.Core;
 
 namespace pvc.Adapters.ZeroMQ
 {
+    public class ZeroPipe<T> : Pipe<T, T> where T : Message
+    {
+        private ZeroConsumer<T> _consumer;
+        private ZeroProducer<T> _producer;
+ 
+        public ZeroPipe(int port, IFormatter formatter)
+        {
+            _consumer = new ZeroConsumer<T>("tcp://*:" + port, formatter);
+            _producer = new ZeroProducer<T>("tcp://localhost:" + port, formatter);
+        }
+
+        public void Handle(T message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AttachConsumer(Consumes<T> consumer)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ThreadPoolPipe<T> : Pipe<T, T> where T : Message
+    {
+        private Consumes<T> _consumer;
+
+        public void Handle(T message)
+        {
+            ThreadPool.QueueUserWorkItem(x => _consumer.Handle(message));
+        }
+
+        public void AttachConsumer(Consumes<T> consumer)
+        {
+            _consumer = consumer;
+        }
+    }
+
+
     /// <summary>
     /// A point-to-point producer that publishes messages received from a 0MQ subscriber socket
     /// </summary>

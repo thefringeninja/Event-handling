@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="pvc.Core.CriticalSection&lt;T&gt;" Collapsed="true">
+    <Position X="7" Y="7.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAEIAAAAAAAAAAAIAAAAAQAAAAAA=</HashCode>
+      <FileName>CriticalSection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="pvc.Core.BufferMessages&lt;T&gt;" Collapsed="true">
+    <Position X="7" Y="6.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAEAAAAAAAEIAAAACAAAAAAIAAAAAAIAAAAA=</HashCode>
+      <FileName>BufferMessages.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="pvc.Core.WideningConsumer&lt;TConsumes, TProduces&gt;" Collapsed="true">
+    <Position X="6.5" Y="3.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAgAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>WideningConsumer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="pvc.Core.NarrowingConsumer&lt;TConsumes, TProduces&gt;" Collapsed="true">
+    <Position X="6.5" Y="4.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAgAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>NarrowingConsumer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="pvc.Core.Multiplexor&lt;T&gt;" Collapsed="true">
+    <Position X="7" Y="8.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAEAAAAAAAAAAAAIgAAAAAAAAAAA=</HashCode>
+      <FileName>Multiplexor.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="pvc.Core.PipeAdapter&lt;TIn, TOut&gt;" Collapsed="true">
+    <Position X="6.5" Y="5.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAEIAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>PipeAdapter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="pvc.Core.Combiner&lt;TBase&gt;" Collapsed="true">
+    <Position X="12.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEEAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Combiner.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="pvc.Core.ByTypeDispatcher&lt;TBaseMessage&gt;" Collapsed="true">
+    <Position X="0.75" Y="2.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAACAAIAAAAAAAQAAAA=</HashCode>
+      <FileName>ByTypeDispatcher.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="pvc.Core.MessagePublisher&lt;T&gt;" Collapsed="true">
+    <Position X="12.5" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>MessagePublisher.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="pvc.Core.ThreadBoundary&lt;T&gt;" Collapsed="true">
+    <Position X="7" Y="9.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAEEIAAAAAAAAAAAIAAAAAAAAAAAI=</HashCode>
+      <FileName>ThreadBoundary.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="pvc.Core.Pipe&lt;TConsumes, TProduces&gt;" Collapsed="true">
+    <Position X="7" Y="2" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pipe.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="pvc.Core.Consumes&lt;TMessage&gt;">
+    <Position X="4.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Consumes.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="pvc.Core.Produces&lt;T&gt;">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Produces.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="pvc.Core.IDispatcher&lt;TBaseMessage&gt;">
+    <Position X="0.75" Y="0.5" Width="2.75" />
+    <InheritanceLine Type="pvc.Core.Consumes&lt;TMessage&gt;" FixedToPoint="true">
+      <Path>
+        <Point X="4.5" Y="1.169" />
+        <Point X="3.5" Y="1.169" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IDispatcher.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

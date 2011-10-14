@@ -10,7 +10,7 @@ namespace pvc.Tests.Messages
 		public override bool Equals (object obj)
 		{
 			var other = obj as TestMessage;
-			return other == null ? false : other.Id == this.Id;
+			return other != null && other.Id == Id;
 		}
 		
 		public override int GetHashCode ()

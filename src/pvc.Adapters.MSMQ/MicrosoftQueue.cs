@@ -6,32 +6,34 @@ namespace pvc.Adapters.MicrosoftMQ
 {
     public class MicrosoftQueue<T> : IQueue<T>, IDisposable
     {
-// ReSharper disable StaticFieldInGenericType
-        private static readonly IMessageFormatter _formatter;
-// ReSharper restore StaticFieldInGenericType
-
         private readonly MessageQueue _receiveQueue;
         private readonly MessageQueue _sendQueue;
-
-        static MicrosoftQueue()
-        {
-            _formatter = new BinaryMessageFormatter();
-        }
-
+        
         private MicrosoftQueue(MessageQueue queue)
         {
             _sendQueue = queue;
         }
 
-        public MicrosoftQueue(string queueName)
+        public MicrosoftQueue(string queueName, IMessageFormatter formatter)
         {
-            _receiveQueue = _sendQueue = new MessageQueue(queueName) { Formatter = _formatter };
+            _receiveQueue = _sendQueue = new MessageQueue(queueName) { Formatter = formatter };
+        }
+
+        public MicrosoftQueue(string queueName) : this(queueName, new BinaryMessageFormatter())
+        {
+            
+        }
+
+        public MicrosoftQueue(string sendQueueName, string receiveQueueName, IMessageFormatter formatter)
+        {
+            _sendQueue = new MessageQueue(sendQueueName) { Formatter = formatter };
+            _receiveQueue = new MessageQueue(receiveQueueName) { Formatter = formatter };
         }
 
         public MicrosoftQueue(string sendQueueName, string receiveQueueName)
+            : this(sendQueueName, receiveQueueName, new BinaryMessageFormatter())
         {
-            _sendQueue = new MessageQueue(sendQueueName) { Formatter = _formatter };
-            _receiveQueue = new MessageQueue(receiveQueueName) { Formatter = _formatter };
+
         }
 
         public static MicrosoftQueue<T> Create(string queueName)

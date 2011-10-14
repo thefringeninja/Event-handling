@@ -1,8 +1,10 @@
 using NUnit.Framework;
 using pvc.Core;
+using pvc.Tests.Fixtures;
 using pvc.Tests.Messages;
+using pvc.Tests.TestConsumer;
 
-namespace pvc.Tests
+namespace pvc.Tests.WideningConsumer
 {
 	[TestFixture]
 	public class widening_consumer_can_widen_pipeline_to_consumer_in_constructor : ConsumerFixture<TestMessage> {

@@ -1,7 +1,9 @@
 
 using NUnit.Framework;
 using pvc.Core;
+using pvc.Tests.Fixtures;
 using pvc.Tests.Messages;
+using pvc.Tests.TestConsumer;
 
 namespace pvc.Tests
 {
@@ -9,7 +11,6 @@ namespace pvc.Tests
 		TestConsumer<TestMessage> correctSubscriber;
 		TestConsumer<OtherMessage> incorrectSubscriber;
 		TestConsumer<BaseMessage> baseClassSubscriber;
-		
 		
 		protected override Consumes<Message> GivenConsumer ()
 		{

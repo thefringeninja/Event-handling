@@ -1,6 +1,6 @@
 ﻿namespace pvc.Core
 {
-	public interface Consumes<TMessage> where TMessage : Message
+	public interface Consumes<in TMessage> where TMessage : Message
 	{
 		void Handle(TMessage message);
 	}
