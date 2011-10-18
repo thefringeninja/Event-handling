@@ -9,7 +9,6 @@ namespace pvc.Adapters.ZeroMQ
 {
     // http://nichol.as/zeromq-an-introduction
     
-
     /// <summary>
     /// A point-to-point consumer that handles messages by sending them through a 0MQ REQ socket
     /// </summary>

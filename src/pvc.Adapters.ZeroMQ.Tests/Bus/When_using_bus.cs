@@ -39,7 +39,9 @@ namespace pvc.Adapters.ZeroMQ.Tests.Bus
 
             Assert.IsTrue(confirmAsReceived.Received);
             Assert.AreEqual(@event.Id, confirmById.Id);
+
             producer.Dispose();
+            consumer.Dispose();
         }
     }
 }

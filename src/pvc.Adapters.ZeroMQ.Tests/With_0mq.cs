@@ -1,5 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using System.Threading;
 using NUnit.Framework;
 using ZMQ;
@@ -24,6 +26,9 @@ namespace pvc.Adapters.ZeroMQ.Tests
                         {
                             socket.Bind("tcp://*:5562");
                             var buffer = socket.Recv();
+                            socket.Send("", Encoding.Unicode); // ACK
+
+
                             using (var ms = new MemoryStream(buffer))
                             {
                                 var message = new BinaryFormatter().Deserialize(ms) as TestMessage;
@@ -34,10 +39,8 @@ namespace pvc.Adapters.ZeroMQ.Tests
                             }
                         }
                     }
-                }
-                );
-
-
+                });
+            
             ThreadPool.QueueUserWorkItem(
                 s =>
                     {
@@ -50,6 +53,7 @@ namespace pvc.Adapters.ZeroMQ.Tests
                                 {
                                     new BinaryFormatter().Serialize(ms, new TestMessage());
                                     socket.Send(ms.ToArray());
+                                    socket.Recv(); // ACK
                                 }
                             }
                         }
@@ -59,5 +63,18 @@ namespace pvc.Adapters.ZeroMQ.Tests
             block.WaitOne();
         }
 
+        [Test]
+        public void timeouts_are_handled_gracefully()
+        {
+            using (var context = new Context())
+            {
+                using (var socket = context.Socket(SocketType.REP))
+                {
+                    socket.Bind("tcp://*:5562");
+                    var received = socket.Recv(100);
+                    Assert.IsNull(received);
+                }
+            }
+        }
     }
 }

@@ -12,18 +12,32 @@ namespace pvc.Adapters.ZeroMQ.Tests
     public class When_using_producer
     {
         [Test]
+        public void timeouts_occur_gracefully()
+        {
+            var block = new ManualResetEvent(false);
+
+            var consumer = new TestConsumer();
+            var producer = new ZeroProducer<Message>("tcp://*:5562");
+            producer.AttachConsumer(consumer);
+            producer.TimedOut += delegate
+            {
+                block.Set();    
+            };
+            
+            block.WaitOne();
+        }
+        
+        [Test]
         public void message_is_produced()
         {
             var block = new ManualResetEvent(false);
             var received = false;
 
             var consumer = new TestConsumer();
-            
             var producer = new ZeroProducer<Message>("tcp://*:5562");
             producer.AttachConsumer(consumer);
 
-            ThreadPool.QueueUserWorkItem(
-                s =>
+            ThreadPool.QueueUserWorkItem(s =>
                 {
                     using (var context = new Context())
                     {
@@ -44,7 +58,8 @@ namespace pvc.Adapters.ZeroMQ.Tests
             
             block.WaitOne();
             Assert.IsTrue(received);
-            producer.Dispose();
+
+            producer.Stop();
         }
     }
 }

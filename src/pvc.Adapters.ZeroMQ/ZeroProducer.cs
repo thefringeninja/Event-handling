@@ -17,10 +17,22 @@ namespace pvc.Adapters.ZeroMQ
     {
         private Consumes<T> _consumer;
         private Thread _thread;
-        private bool _stop;
-        private Context _context;
+        private volatile bool _stop;
+        private readonly Context _context;
         private readonly string _endpoint;
         private readonly IFormatter _formatter;
+        private Socket _socket;
+        private const int Timeout = 1000;
+
+        public event EventHandler<EventArgs> TimedOut;
+        public virtual void OnTimedOut(EventArgs e)
+        {
+            var handler = TimedOut;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
 
         public ZeroProducer(string endpoint, IFormatter formatter = null) : this (new Context(1), endpoint, formatter)
         {
@@ -32,6 +44,18 @@ namespace pvc.Adapters.ZeroMQ
             _endpoint = endpoint;
             _context = context;
             _formatter = formatter ?? new BinaryFormatter();
+            RebuildSocket();
+        }
+
+        public void RebuildSocket()
+        {
+            if (_socket != null)
+            {
+                return;
+            }
+
+            _socket = _context.Socket(SocketType.REP);
+            _socket.Bind(_endpoint);
         }
 
         public void AttachConsumer(Consumes<T> consumer)
@@ -46,32 +70,21 @@ namespace pvc.Adapters.ZeroMQ
         public void Dispose()
         {
             Stop();
-            if (_context == null)
-            {
-                return;
-            }
-            _context.Dispose();
-            _context = null;
         }
 
         public override string ToString()
         {
             return _endpoint;
         }
-        
+
         private void ProcessQueue()
         {
-            using (var socket = _context.Socket(SocketType.REP))
+            while (!_stop)
             {
-                socket.Bind(_endpoint);
-
-                while (!_stop)
+                T item;
+                if (TryDequeue(out item))
                 {
-                    T item;
-                    if (TryDequeue(socket, out item))
-                    {
-                        _consumer.Handle(item);
-                    }
+                    _consumer.Handle(item);
                 }
             }
         }
@@ -85,30 +98,33 @@ namespace pvc.Adapters.ZeroMQ
         public void Stop()
         {
             _stop = true;
-            if (!_thread.Join(1000))
-            {
-                _thread.Abort();
-            }
+            _thread.Join();
         }
-        
-        private bool TryDequeue(Socket socket, out T item)
-        {
-            try
-            {
-                var buffer = socket.Recv();
-                var message = new MemoryStream(buffer);
-                var r = _formatter.Deserialize(message);
-                item = (T)r;
 
-                socket.Send("ACK", Encoding.Unicode);
-                return true;
-            }
-            catch (ThreadAbortException)
+        private bool TryDequeue(out T item)
+        {
+            if (_stop)
             {
-                // We are often blocking on receiving when the producer thread is shut down
+                _socket.Dispose();
                 item = default(T);
                 return false;
             }
+
+            var buffer = _socket.Recv(Timeout);
+            if (buffer == null)
+            {
+                OnTimedOut(EventArgs.Empty);
+                _socket.Dispose();
+                RebuildSocket();
+                return TryDequeue(out item);
+            }
+
+            var message = new MemoryStream(buffer);
+            var r = _formatter.Deserialize(message);
+            item = (T) r;
+
+            _socket.Send("", Encoding.Unicode); // ACK
+            return true;
         }
     }
 }
