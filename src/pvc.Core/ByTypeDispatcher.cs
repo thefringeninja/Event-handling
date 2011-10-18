@@ -22,14 +22,20 @@ namespace pvc.Core
 		{
 			var t = message.GetType();
 			Publish(message, t);
-			do
-			{
-			    if (t != null)
-			    {
-			        t = t.BaseType;
-			    }
-			    Publish(message, t);
-			} while (t != typeof(TBaseMessage));
+
+            if (typeof(TBaseMessage).IsInterface)
+            {
+                Publish(message, typeof(TBaseMessage));
+            }
+
+            do
+            {
+                if (t != null)
+                {
+                    t = t.BaseType;
+                }
+                Publish(message, t);
+            } while (t != typeof(object));
 		}
 
 		private void Publish(TBaseMessage message, Type publishAs)

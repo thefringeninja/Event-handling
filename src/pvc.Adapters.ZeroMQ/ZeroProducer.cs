@@ -2,52 +2,15 @@ using System;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using System.Threading;
 using ZMQ;
 using pvc.Core;
 
 namespace pvc.Adapters.ZeroMQ
 {
-    public class ZeroPipe<T> : Pipe<T, T> where T : Message
-    {
-        private ZeroConsumer<T> _consumer;
-        private ZeroProducer<T> _producer;
- 
-        public ZeroPipe(int port, IFormatter formatter)
-        {
-            _consumer = new ZeroConsumer<T>("tcp://*:" + port, formatter);
-            _producer = new ZeroProducer<T>("tcp://localhost:" + port, formatter);
-        }
-
-        public void Handle(T message)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AttachConsumer(Consumes<T> consumer)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class ThreadPoolPipe<T> : Pipe<T, T> where T : Message
-    {
-        private Consumes<T> _consumer;
-
-        public void Handle(T message)
-        {
-            ThreadPool.QueueUserWorkItem(x => _consumer.Handle(message));
-        }
-
-        public void AttachConsumer(Consumes<T> consumer)
-        {
-            _consumer = consumer;
-        }
-    }
-
-
     /// <summary>
-    /// A point-to-point producer that publishes messages received from a 0MQ subscriber socket
+    /// A point-to-point producer that publishes messages received from a 0MQ REP socket
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class ZeroProducer<T> : Produces<T>, IDisposable where T : Message
@@ -56,18 +19,19 @@ namespace pvc.Adapters.ZeroMQ
         private Thread _thread;
         private bool _stop;
         private Context _context;
-        private Socket _socket;
         private readonly string _endpoint;
         private readonly IFormatter _formatter;
 
-        public ZeroProducer(string endpoint, IFormatter formatter = null)
+        public ZeroProducer(string endpoint, IFormatter formatter = null) : this (new Context(1), endpoint, formatter)
+        {
+            
+        }
+
+        public ZeroProducer(Context context, string endpoint, IFormatter formatter = null)
         {
             _endpoint = endpoint;
-            _context = new Context(1);
+            _context = context;
             _formatter = formatter ?? new BinaryFormatter();
-
-            _socket = _context.Socket(SocketType.REP);
-            _socket.Connect(_endpoint);
         }
 
         public void AttachConsumer(Consumes<T> consumer)
@@ -81,17 +45,13 @@ namespace pvc.Adapters.ZeroMQ
 
         public void Dispose()
         {
-            if (_socket != null)
+            Stop();
+            if (_context == null)
             {
-                _socket.Dispose();
-                _socket = null;
+                return;
             }
-
-            if (_context != null)
-            {
-                _context.Dispose();
-                _context = null;
-            }
+            _context.Dispose();
+            _context = null;
         }
 
         public override string ToString()
@@ -101,12 +61,17 @@ namespace pvc.Adapters.ZeroMQ
         
         private void ProcessQueue()
         {
-            while (!_stop)
+            using (var socket = _context.Socket(SocketType.REP))
             {
-                T item;
-                if (TryDequeue(out item))
+                socket.Bind(_endpoint);
+
+                while (!_stop)
                 {
-                    _consumer.Handle(item);
+                    T item;
+                    if (TryDequeue(socket, out item))
+                    {
+                        _consumer.Handle(item);
+                    }
                 }
             }
         }
@@ -125,19 +90,22 @@ namespace pvc.Adapters.ZeroMQ
                 _thread.Abort();
             }
         }
-
-        private bool TryDequeue(out T item)
+        
+        private bool TryDequeue(Socket socket, out T item)
         {
             try
             {
-                var buffer = _socket.Recv(); // blocking
+                var buffer = socket.Recv();
                 var message = new MemoryStream(buffer);
                 var r = _formatter.Deserialize(message);
-                item = (T) r;
+                item = (T)r;
+
+                socket.Send("ACK", Encoding.Unicode);
                 return true;
             }
-            catch
+            catch (ThreadAbortException)
             {
+                // We are often blocking on receiving when the producer thread is shut down
                 item = default(T);
                 return false;
             }

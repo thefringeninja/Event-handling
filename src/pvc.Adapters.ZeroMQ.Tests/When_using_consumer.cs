@@ -23,7 +23,7 @@ namespace pvc.Adapters.ZeroMQ.Tests
                     {
                         using (var socket = context.Socket(SocketType.REP))
                         {
-                            socket.Connect("tcp://localhost:5562");
+                            socket.Bind("tcp://*:5562");
                             socket.Recv(); // blocking
                         }
                         consumed = true;
@@ -31,7 +31,7 @@ namespace pvc.Adapters.ZeroMQ.Tests
                     }
                 );
 
-            using (var consumer = new ZeroConsumer<Message>("tcp://*:5562"))
+            using (var consumer = new ZeroConsumer<Message>("tcp://localhost:5562"))
             {
                 consumer.Handle(new TestMessage());
             }

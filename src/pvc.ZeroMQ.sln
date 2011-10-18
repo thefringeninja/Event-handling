@@ -13,6 +13,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pvc.Adapters.ZeroMQ", "pvc.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pvc.Adapters.ZeroMQ.Tests", "pvc.Adapters.ZeroMQ.Tests\pvc.Adapters.ZeroMQ.Tests.csproj", "{14A35034-DD0C-4A5D-B52C-9FD2324DCEAF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pvc.Core", "pvc.Core\pvc.Core.csproj", "{B4EBBFC1-A4B7-4F90-86CF-B73E1E6674B1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pvc", "pvc", "{DFA21DC3-1C2A-400F-9BAE-99A8C0AF6C93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pvc.Projections", "pvc.Projections\pvc.Projections.csproj", "{A852309C-564E-47DC-B046-A7183F295D25}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,9 +33,21 @@ Global
 		{14A35034-DD0C-4A5D-B52C-9FD2324DCEAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14A35034-DD0C-4A5D-B52C-9FD2324DCEAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14A35034-DD0C-4A5D-B52C-9FD2324DCEAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4EBBFC1-A4B7-4F90-86CF-B73E1E6674B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4EBBFC1-A4B7-4F90-86CF-B73E1E6674B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4EBBFC1-A4B7-4F90-86CF-B73E1E6674B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4EBBFC1-A4B7-4F90-86CF-B73E1E6674B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A852309C-564E-47DC-B046-A7183F295D25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A852309C-564E-47DC-B046-A7183F295D25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A852309C-564E-47DC-B046-A7183F295D25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A852309C-564E-47DC-B046-A7183F295D25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B4EBBFC1-A4B7-4F90-86CF-B73E1E6674B1} = {DFA21DC3-1C2A-400F-9BAE-99A8C0AF6C93}
+		{A852309C-564E-47DC-B046-A7183F295D25} = {DFA21DC3-1C2A-400F-9BAE-99A8C0AF6C93}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = EventRunner\EventRunner.csproj

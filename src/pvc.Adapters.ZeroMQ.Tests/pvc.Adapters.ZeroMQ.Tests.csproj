@@ -43,9 +43,6 @@
     <Reference Include="pnunit.framework">
       <HintPath>..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="pvc.Core">
-      <HintPath>..\packages\pvc.0.0.6\lib\net20\pvc.Core.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -55,12 +52,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fixtures\BusAdapter.cs" />
+    <Compile Include="Bus\When_using_bus.cs" />
     <Compile Include="Fixtures\TestMessage.cs" />
     <Compile Include="Fixtures\TestConsumer.cs" />
     <Compile Include="When_using_consumer.cs" />
     <Compile Include="When_using_producer.cs" />
-    <Compile Include="When_using_producer_and_consumer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="With_0mq.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -69,6 +68,14 @@
     <ProjectReference Include="..\pvc.Adapters.ZeroMQ\pvc.Adapters.ZeroMQ.csproj">
       <Project>{9270491A-1881-4985-8F07-9562809D7F3C}</Project>
       <Name>pvc.Adapters.ZeroMQ</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\pvc.Core\pvc.Core.csproj">
+      <Project>{B4EBBFC1-A4B7-4F90-86CF-B73E1E6674B1}</Project>
+      <Name>pvc.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\pvc.Projections\pvc.Projections.csproj">
+      <Project>{A852309C-564E-47DC-B046-A7183F295D25}</Project>
+      <Name>pvc.Projections</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
