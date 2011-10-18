@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fixtures\FakeEvent.cs" />
     <Compile Include="Fixtures\BusAdapter.cs" />
     <Compile Include="Bus\When_using_bus.cs" />
     <Compile Include="Fixtures\TestMessage.cs" />

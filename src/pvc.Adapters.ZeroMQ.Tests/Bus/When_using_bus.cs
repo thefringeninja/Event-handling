@@ -3,26 +3,14 @@ using System.Threading;
 using NUnit.Framework;
 using pvc.Adapters.ZeroMQ.Tests.Fixtures;
 using pvc.Core;
-using pvc.Core.Bus;
 
 namespace pvc.Adapters.ZeroMQ.Tests.Bus
 {
     [TestFixture]
     public class When_using_bus
     {
-        [Serializable]
-        public class FakeEvent : Event
-        {
-            public string Id { get; set; }
-
-            public FakeEvent()
-            {
-                Id = Guid.NewGuid().ToString();
-            }
-        }
-
         [Test]
-        public void a_published_message_is_received_by_a_subscriber()
+        public void a_published_message_is_received_by_multiple_subscribers()
         {
             // When the bus publishes a message, it is sent through the socket
             var consumer = new ZeroConsumer<Message>("tcp://localhost:5562");
@@ -34,10 +22,12 @@ namespace pvc.Adapters.ZeroMQ.Tests.Bus
             var aggregator = new EventAggregator<Message>();
             aggregator.AttachTo(producer);
             
-            // While a test consumer is subscribed to the aggregator
+            // While two test consumers are subscribed to the aggregator
             // (the syntax looks like it's the other way around)
-            var test = new TestConsumer();
-            aggregator.SubscribeTo(test);
+            var confirmById = new FakeEventConsumer();
+            var confirmAsReceived = new TestConsumer();
+            aggregator.SubscribeTo(confirmById);
+            aggregator.SubscribeTo(confirmAsReceived);
 
             // When we drop a message on the bus, the test consumer should get it
             var @event = new FakeEvent();
@@ -47,7 +37,8 @@ namespace pvc.Adapters.ZeroMQ.Tests.Bus
             var timeout = TimeSpan.FromSeconds(1).TotalMilliseconds;
             Thread.Sleep((int)timeout);
 
-            Assert.IsTrue(test.Received);
+            Assert.IsTrue(confirmAsReceived.Received);
+            Assert.AreEqual(@event.Id, confirmById.Id);
             producer.Dispose();
         }
     }
