@@ -53,6 +53,7 @@
     <Compile Include="Messages\OtherMessage.cs" />
     <Compile Include="Multiplexor\when_multiplexing_to_multiple_constructed_consumers.cs" />
     <Compile Include="Multiplexor\when_multiplexing_to_removed_consumer.cs" />
+    <Compile Include="QueueReader\when_reading_messages_from_a_queue.cs" />
     <Compile Include="TestConsumer\when_test_consumer_receives_a_single_message.cs" />
     <Compile Include="TestConsumer\when_test_consumer_receives_two_messages.cs" />
     <Compile Include="ActionWrappingConsumer\when_build_a_wrapped_action.cs" />

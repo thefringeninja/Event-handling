@@ -10,7 +10,7 @@ namespace pvc.Core
 
         private readonly IQueue<T> _queue;
 		private Consumes<T> _consumer;
-        private volatile bool _continue;
+        private volatile bool _continue = true;
 		private Thread _thread;
 
 		public delegate void LogError(string format, params object[] args);
@@ -64,6 +64,7 @@ namespace pvc.Core
 			{
 				throw new InvalidOperationException("Start called while reader already running.");
 			}
+		    _continue = true;
 			_thread = new Thread(Run) { IsBackground = true };
 			_thread.Start();
 		}
