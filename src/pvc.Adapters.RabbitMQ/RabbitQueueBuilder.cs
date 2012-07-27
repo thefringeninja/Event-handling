@@ -7,6 +7,7 @@ namespace pvc.Adapters.RabbitMQ
 	public class RabbitQueueBuilder<T>
 	{
 		public string HostName { get; set; }
+		public string VirtualHost { get; set; }
 		public string UserName { get; set; }
 		public string Password { get; set; }
 		public int Port { get; set; }
@@ -24,12 +25,13 @@ namespace pvc.Adapters.RabbitMQ
 			Port = 5672;
 		}
 
-		public RabbitQueueBuilder(string hostName, string userName, string password, int port, string exchange, string queue, IFormatter formatter, bool requiresAck)
+		public RabbitQueueBuilder(string hostName, string userName, string password, int port, string virtualHost, string exchange, string queue, IFormatter formatter, bool requiresAck)
 		{
 			HostName = hostName;
 			UserName = userName;
 			Password = password;
 			Port = port;
+			VirtualHost = virtualHost;
 			Exchange = exchange;
 			Queue = queue;
 			Formatter = formatter;
@@ -45,6 +47,12 @@ namespace pvc.Adapters.RabbitMQ
 		public RabbitQueueBuilder<T> ToHost(string hostName)
 		{
 			HostName = hostName;
+			return this;
+		}
+
+		public RabbitQueueBuilder<T> OnVirtualHost(string virtualHost)
+		{
+			VirtualHost = virtualHost;
 			return this;
 		}
 
@@ -115,10 +123,11 @@ namespace pvc.Adapters.RabbitMQ
 		public static implicit operator RabbitQueue<T>(RabbitQueueBuilder<T> builder)
 		{
 		    return
-		        new RabbitQueue<T>(new RabbitCreationParams(builder.HostName, builder.UserName, builder.Password, builder.Port,
-		                                                    builder.Exchange, builder.Queue, builder.Formatter,
-		                                                    builder.RequiresAck, builder.PrefetchCount,
-		                                                    builder.PersistentMessages));
+		        new RabbitQueue<T>(new RabbitCreationParams(builder.HostName, builder.UserName, builder.Password, 
+															builder.Port, builder.VirtualHost, 
+															builder.Exchange, builder.Queue,
+															builder.Formatter, builder.RequiresAck,
+															builder.PrefetchCount, builder.PersistentMessages));
 
 		}
 	}

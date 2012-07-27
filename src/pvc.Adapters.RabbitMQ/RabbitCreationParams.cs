@@ -5,6 +5,7 @@ namespace pvc.Adapters.RabbitMQ
 	public class RabbitCreationParams
 	{
 		public string HostName { get; set; }
+		public string VirtualHost { get; set; }
 		public string UserName { get; set; }
 		public string Password { get; set; }
 		public int Port { get; set; }
@@ -20,9 +21,10 @@ namespace pvc.Adapters.RabbitMQ
 
 		}
 
-		public RabbitCreationParams(string hostName, string userName, string password, int port, string exchange, string queue, IFormatter formatter, bool requiresAck, int prefetchCount, bool persistentMessages)
+		public RabbitCreationParams(string hostName, string userName, string password, int port, string virtualHost, string exchange, string queue, IFormatter formatter, bool requiresAck, int prefetchCount, bool persistentMessages)
 		{
 			HostName = hostName;
+			VirtualHost = virtualHost;
 			UserName = userName;
 			Password = password;
 			Port = port;

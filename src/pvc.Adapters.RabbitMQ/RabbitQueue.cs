@@ -30,7 +30,8 @@ namespace pvc.Adapters.RabbitMQ
 				HostName = rabbitCreationParams.HostName,
 				UserName = rabbitCreationParams.UserName,
 				Password = rabbitCreationParams.Password,
-				Port = rabbitCreationParams.Port
+				Port = rabbitCreationParams.Port,
+				VirtualHost = rabbitCreationParams.VirtualHost
 			};
 			_connection = _connectionFactory.CreateConnection();
 			_model = _connection.CreateModel();
